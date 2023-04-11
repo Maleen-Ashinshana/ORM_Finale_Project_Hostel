@@ -7,14 +7,16 @@ import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.List;
+
 
 
 public class RoomDTO {
-
     private String room_type_id;
     private String type;
     private String key_money;
     private int qty;
+    private List<ReservationDTO>reservationDTOS;
 
     public RoomDTO() {
     }
@@ -58,6 +60,14 @@ public class RoomDTO {
         this.qty = qty;
     }
 
+    public List<ReservationDTO> getReservationDTOS() {
+        return reservationDTOS;
+    }
+
+    public void setReservationDTOS(List<ReservationDTO> reservationDTOS) {
+        this.reservationDTOS = reservationDTOS;
+    }
+
     @Override
     public String toString() {
         return "RoomDTO{" +
@@ -65,6 +75,7 @@ public class RoomDTO {
                 ", type='" + type + '\'' +
                 ", key_money='" + key_money + '\'' +
                 ", qty=" + qty +
+                ", reservationDTOS=" + reservationDTOS +
                 '}';
     }
 }

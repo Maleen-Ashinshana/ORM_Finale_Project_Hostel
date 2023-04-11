@@ -15,10 +15,14 @@ public class Convertor {
         return new StudentEntity(studentDTO.getStudentId(),studentDTO.getStudentName(),studentDTO.getAddress(),studentDTO.getContact_number(),studentDTO.getDate_of_birth(),studentDTO.getGender());
 
     }
-    public RoomDTO froRoomDTO(RoomEntity roomEntity){
+    public RoomDTO froRoom(RoomEntity roomEntity){
         return new RoomDTO(roomEntity.getRoom_type_id(), roomEntity.getType(),roomEntity.getKey_money(), roomEntity.getQty());
     }
     public RoomEntity toRoom(RoomDTO roomDTO){
         return new RoomEntity(roomDTO.getRoom_type_id(),roomDTO.getType(),roomDTO.getKey_money(), roomDTO.getQty());
     }
+
+   /* public RoomEntity toRoom(RoomEntity entity) {
+        return null;
+    }*/
 }

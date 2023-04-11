@@ -2,6 +2,7 @@ package lk.ijse.hostel.controller;
 
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
@@ -68,11 +69,12 @@ public class StudentFormController {
     private Pattern dobPattern;
     private Pattern genderPattern;
     public StudentService studentService;
+    ObservableList<StudentTm>list=FXCollections.observableArrayList();
 
     public void initialize() throws SQLException, ClassNotFoundException {
         pattern();
         studentView();
-        //loadAllStudent();
+        loadAllStudent();
         this.studentService= (StudentService) ServiceFactory.getInstance().getService(ServiceTypes.STUDENT);
     }
     public void pattern(){
@@ -166,17 +168,18 @@ public class StudentFormController {
     public void BtnStSearchOnAction(javafx.event.ActionEvent actionEvent) {
     txtIdOnAction(actionEvent );
     }
-    private void studentView(){
+    private void studentView() throws SQLException {
         colId.setCellValueFactory(new PropertyValueFactory<>("studentId"));
         colName.setCellValueFactory(new PropertyValueFactory<>("StudentName"));
         colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
         coltel.setCellValueFactory(new PropertyValueFactory<>("contact_number"));
         colDOB.setCellValueFactory(new PropertyValueFactory<>("date_of_birth"));
         colGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        loadAllStudent();
     }
     private void loadAllStudent() throws SQLException {
        // System.out.println(studentTM.getStudentId());
-        System.out.println("**************");
+        /*System.out.println("**************");
         List<StudentTm> collect=studentService.getAllStudent().stream().map(studentDTO -> new StudentTm(
                 studentDTO.getStudentId(), studentDTO.getStudentName(), studentDTO.getAddress(), studentDTO.getContact_number(),
                 studentDTO.getDate_of_birth(), studentDTO.getGender())).collect(Collectors.toList());
@@ -184,6 +187,16 @@ public class StudentFormController {
 
         System.out.println("++++++++++++++++");
         tblStudent.setItems(FXCollections.observableArrayList(collect));
-        System.out.println("-----------------");
+        System.out.println("-----------------");*/
+
+        for (StudentDTO studentDTO:studentService.getAllStudent()) {
+            StudentTm studentTm=new StudentTm(studentDTO.getStudentId(),
+                    studentDTO.getStudentName(),studentDTO.getAddress(),
+                    studentDTO.getContact_number(),studentDTO.getDate_of_birth(),studentDTO.getGender()
+            );
+            list.add(studentTm);
+            tblStudent.setItems(list);
+        }
+
     }
 }

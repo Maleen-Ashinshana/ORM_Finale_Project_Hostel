@@ -74,9 +74,24 @@ public class StudentDAOIMPL implements StudentDAO {
 
     @Override
     public List<StudentEntity> getAll() {
-        Session session2=FactoryConfiguration.getInstance().getSession();
+        Session session=FactoryConfiguration.getInstance().getSession();
 
-        String hql="From StudentEntity";
+        Query<StudentEntity> query=session.createQuery("from StudentEntity ");
+        List<StudentEntity> list=query.list();
+
+        for (StudentEntity student:list) {
+            student.getStudentId();
+            student.getStudentName();
+            student.getAddress();
+            student.getContact_number();
+            student.getDate_of_birth();
+            student.getGender();
+
+        }
+        return list;
+
+
+        /*String hql="From StudentEntity";
         Query query= session2.createQuery(hql);
         List<StudentEntity> result=query.list();
 
@@ -89,6 +104,6 @@ public class StudentDAOIMPL implements StudentDAO {
              student.getGender();
         }
 
-        return result;
+        return result;*/
     }
 }

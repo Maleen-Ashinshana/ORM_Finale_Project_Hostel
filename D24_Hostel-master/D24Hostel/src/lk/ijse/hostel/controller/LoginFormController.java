@@ -3,6 +3,7 @@ package lk.ijse.hostel.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -46,6 +47,10 @@ public class LoginFormController {
     public JFXButton underSingUp;
     public JFXButton underSingIn;
     public JFXButton underSingIn1;
+    public FontAwesomeIcon fEye;
+    public FontAwesomeIcon fEyeSlash;
+    public JFXTextField txtSlashPassword;
+
     private Pattern txtUserNamePatten;
     private Pattern txtPasswordPatten;
     private Pattern idPatten;
@@ -59,6 +64,13 @@ public UserService userService;
         underSingUp.setVisible(false);
         lblCreateAccount.setVisible(false);
         txtId.setVisible(false);
+        fEyeSlash.setVisible(false);
+        txtSlashPassword.setVisible(false);
+
+        txtPassword.setOnKeyReleased(event -> txtSlashPassword.setText(txtPassword.getText()));
+
+        txtSlashPassword.setOnKeyReleased(event -> txtPassword.setText(txtSlashPassword.getText()));
+
         idPatten= Pattern.compile("^[S][0][0-9]{1,}$");
         namePatten=Pattern.compile("^[A-Za-z0-9]{4,}$");
         passwordPatten=Pattern.compile("^[a-zA-Z0-9_]{8,}$");
@@ -226,5 +238,22 @@ public UserService userService;
             txtId.setFocusColor(Paint.valueOf("Red"));
             txtId.requestFocus();
         }
+    }
+
+    public void showPassword(MouseEvent mouseEvent) {
+    /*txtPassword.setVisible(f);*/
+        txtPassword.setVisible(false);
+        fEye.setVisible(false);
+        txtSlashPassword.setVisible(true);
+        fEyeSlash.setVisible(true);
+
+    }
+
+    public void hidePassword(MouseEvent mouseEvent) {
+        txtSlashPassword.setVisible(false);
+        fEyeSlash.setVisible(false);
+        txtPassword.setVisible(true);
+        fEye.setVisible(true);
+
     }
 }

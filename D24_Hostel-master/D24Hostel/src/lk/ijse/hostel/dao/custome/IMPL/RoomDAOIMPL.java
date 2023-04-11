@@ -69,7 +69,7 @@ public class RoomDAOIMPL implements RoomDAO {
 
     @Override
     public List<RoomEntity> getAll() {
-        Session session2=FactoryConfiguration.getInstance().getSession();
+        /*Session session2=FactoryConfiguration.getInstance().getSession();
         String hql="From RoomEntity ";
         Query query= session2.createQuery(hql);
         List<RoomEntity> result=query.list();
@@ -82,7 +82,17 @@ public class RoomDAOIMPL implements RoomDAO {
 
         }
 
-        return result;
+        return result;*/
+        List<RoomEntity> entities;
+        try {
+            Session session=FactoryConfiguration.getInstance().getSession();
+            Query query=session.createQuery("from RoomEntity");
+            entities=query.list();
+            return  entities;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
     }
 

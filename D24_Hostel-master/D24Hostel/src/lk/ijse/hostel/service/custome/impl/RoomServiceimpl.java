@@ -16,6 +16,7 @@ import lk.ijse.hostel.service.util.Convertor;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class RoomServiceimpl implements RoomService {
     private final RoomDAO roomDAO ;
@@ -34,7 +35,7 @@ public class RoomServiceimpl implements RoomService {
     public RoomDTO searchRoom(String id) throws NotFoundException {
         Optional<RoomEntity> roomEntity= Optional.ofNullable(roomDAO.search(id));
         if (!roomEntity.isPresent())throw new NotFoundException("Room Not Found");
-        return convertor.froRoomDTO(roomEntity.get());
+        return convertor.froRoom(roomEntity.get());
     }
 
     @Override
@@ -49,6 +50,8 @@ public class RoomServiceimpl implements RoomService {
 
     @Override
     public List<RoomDTO> getAllRoom() {
-        return null;
+        return roomDAO.getAll().stream().map(roomEntity -> convertor.froRoom(roomEntity)).collect(Collectors.toList());
+                /*roomDAO*/
+        //return roomDAO.getAll().stream().map(entity->convertor.fromStudent(entity)).collect(Collectors.toList());
     }
 }

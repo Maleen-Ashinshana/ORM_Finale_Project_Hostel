@@ -1,6 +1,8 @@
 package lk.ijse.hostel.controller;
 
 import com.jfoenix.controls.JFXTextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
@@ -17,6 +19,7 @@ import lk.ijse.hostel.service.exception.NotFoundException;
 import lk.ijse.hostel.tm.RoomTm;
 
 import java.sql.SQLException;
+import java.util.stream.Collectors;
 
 public class RoomFormController {
     public AnchorPane pane;
@@ -30,6 +33,7 @@ public class RoomFormController {
     public TableColumn colKeyMoney;
     public TableColumn colQty;
     public RoomService roomService;
+    private ObservableList<RoomTm> roomTms= FXCollections.observableArrayList();
     public void initialize() throws SQLException, ClassNotFoundException {
         RoomtView();
         this.roomService= (RoomService) ServiceFactory.getInstance().getService(ServiceTypes.ROOM);
@@ -39,7 +43,7 @@ public class RoomFormController {
         colType.setCellValueFactory(new PropertyValueFactory<>("type"));
         colKeyMoney.setCellValueFactory(new PropertyValueFactory<>("key_money"));
         colQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
-
+       loadRooms();
     }
 
     public void txtIDOnAction(ActionEvent actionEvent) {
@@ -90,5 +94,15 @@ public class RoomFormController {
     }
 
     public void btnSearchOnAction(ActionEvent actionEvent) {
+        txtIDOnAction(actionEvent);
     }
+    private void loadRooms(){
+
+        roomTms.addAll(
+                roomService.getAllRoom().stream().map(roomDTO -> new RoomTm(
+                        roomDTO.getRoom_type_id(),roomDTO.getType(),roomDTO.getKey_money(), roomDTO.getQty()
+                )).collect(Collectors.toList()));
+        tblRooms.setItems(roomTms);
+    }
+
 }

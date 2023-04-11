@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
+import java.util.List;
 
 
 public class StudentDTO {
@@ -16,6 +16,7 @@ public class StudentDTO {
     private int contact_number;
     private String date_of_birth;
     private String gender;
+    private List<ReservationDTO> reservationDTOS;
 
     public StudentDTO(String studentId, String studentName, String address, int contact_number, String date_of_birth, String gender) {
         this.studentId = studentId;
@@ -75,6 +76,14 @@ public class StudentDTO {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public List<ReservationDTO> getReservationDTOS() {
+        return reservationDTOS;
+    }
+
+    public void setReservationDTOS(List<ReservationDTO> reservationDTOS) {
+        this.reservationDTOS = reservationDTOS;
     }
 
     @Override
