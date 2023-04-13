@@ -90,9 +90,17 @@ public class RoomFormController {
 
     public void btnUpdateonAction(ActionEvent actionEvent) {
         RoomDTO roomDTO=new RoomDTO(txtId.getText(),txtType.getText(),txtxKeyMoney.getText(),Integer.parseInt(txtQty.getText()));
+        int select;
         try {
             roomService.updateRoom(roomDTO);
+            select=tblRooms.getSelectionModel().getSelectedIndex();
+            tblRooms.getItems().remove(select+1);
             new Alert(Alert.AlertType.INFORMATION,"Update").show();
+            txtId.clear();
+            txtType.clear();
+            txtxKeyMoney.clear();
+            txtQty.clear();
+            loadRooms();
         }catch (NotFoundException e){
             new Alert(Alert.AlertType.ERROR,e.getMessage());
         }

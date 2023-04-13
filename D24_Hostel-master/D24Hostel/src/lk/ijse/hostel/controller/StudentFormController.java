@@ -176,12 +176,23 @@ public class StudentFormController {
 
     public void btnSUpdateOnAction(javafx.event.ActionEvent actionEvent) {
         StudentDTO studentDTO=new StudentDTO(txtId.getText(),txtName.getText(),txtAddress.getText(),Integer.parseInt(txtxTel.getText()),txtDOB.getText(),txtGender.getText());
+        int select;
         try {
             studentService.updateStudent(studentDTO);
+            select=tblStudent.getSelectionModel().getSelectedIndex();
+            tblStudent.getItems().remove(select+1);
             new Alert(Alert.AlertType.INFORMATION,"Update").show();
+            txtId.clear();
+            txtName.clear();
+            txtAddress.clear();
+            txtxTel.clear();
+            txtDOB.clear();
+            txtGender.clear();
+            loadStudent();
         }catch (NotFoundException e){
             new Alert(Alert.AlertType.ERROR,e.getMessage());
         }
+
     }
 
     public void BtnStSearchOnAction(javafx.event.ActionEvent actionEvent) {
