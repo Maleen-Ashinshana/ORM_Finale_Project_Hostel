@@ -74,10 +74,11 @@ public class StudentFormController {
     private ObservableList<StudentTm>list=FXCollections.observableArrayList();
 
     public void initialize() throws SQLException, ClassNotFoundException {
+
+        studentService= (StudentService) ServiceFactory.getInstance().getService(ServiceTypes.STUDENT);
         pattern();
         studentView();
-        //loadStudent();
-        studentService= (StudentService) ServiceFactory.getInstance().getService(ServiceTypes.STUDENT);
+        loadStudent();
     }
     private void loadStudent(){
         list.addAll(

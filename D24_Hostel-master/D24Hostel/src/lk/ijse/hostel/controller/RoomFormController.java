@@ -41,6 +41,7 @@ public class RoomFormController {
     public void initialize() throws SQLException, ClassNotFoundException {
         RoomtView();
         this.roomService= (RoomService) ServiceFactory.getInstance().getService(ServiceTypes.ROOM);
+        loadRooms();
     }
     private void RoomtView(){
         colId.setCellValueFactory(new PropertyValueFactory<>("room_type_id"));

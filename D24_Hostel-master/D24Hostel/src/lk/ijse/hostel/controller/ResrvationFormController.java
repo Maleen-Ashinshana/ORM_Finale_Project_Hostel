@@ -11,7 +11,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lk.ijse.hostel.dto.ReservationDTO;
+import lk.ijse.hostel.service.ServiceFactory;
+import lk.ijse.hostel.service.ServiceTypes;
 import lk.ijse.hostel.service.custome.ReservationService;
+import lk.ijse.hostel.service.custome.RoomService;
 import lk.ijse.hostel.service.exception.DuplicateException;
 import lk.ijse.hostel.tm.ReservationTm;
 
@@ -19,6 +22,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ResrvationFormController {
+    public JFXComboBox cmbStatus;
     @FXML
     private JFXTextField txtId;
 
@@ -52,8 +56,13 @@ public class ResrvationFormController {
     @FXML
     private TableColumn<?, ?> colStatus;
     public ReservationService reservationService;
-    public void initialize(){
+    public void initialize() throws SQLException, ClassNotFoundException {
+
         reservationView();
+        ObservableList<String> list=FXCollections.observableArrayList("Paid","Non-Paid");
+        cmbStatus.setItems(list);
+        this.reservationService= (ReservationService) ServiceFactory.getInstance().getService(ServiceTypes.RESEVATION);
+        LoadStudentIds();
     }
 
     public void txtIdOnActionm(ActionEvent actionEvent) {
