@@ -11,6 +11,7 @@ import java.util.List;
 
 @Entity
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Table(name = "student")
@@ -22,10 +23,8 @@ public class StudentEntity implements SuperEntity{
     private int contact_number;
     private String date_of_birth;
     private String gender;
-/*    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL)
-    private List<ReservationEntity> reservationEntities;*/
-   /*@OneToMany(mappedBy = "student",targetEntity = ReservationEntity.class)
-   private List<ReservationEntity> list = new ArrayList<>();*/
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    private List<ReservationEntity> reservations=new ArrayList<>();
 
     public StudentEntity(String studentId, String studentName, String address, int contact_number, String date_of_birth, String gender) {
         this.studentId = studentId;

@@ -11,8 +11,8 @@ import java.sql.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Table(name = "reservation")
+@ToString
 public class ReservationEntity implements SuperEntity {
     @Id
     private String id;
@@ -21,8 +21,10 @@ public class ReservationEntity implements SuperEntity {
 
 
     @ManyToOne
+    @JoinColumn(name = "studentId", referencedColumnName = "studentId")
     private StudentEntity studentEntity;
-    @ManyToOne()
+    @ManyToOne
+    @JoinColumn(name = "room_type_id", referencedColumnName = "room_type_id")
     private RoomEntity room;
 
     public ReservationEntity(String id, String date, String status) {
