@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -22,6 +23,7 @@ import org.hibernate.Session;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class RoomFormController {
@@ -86,6 +88,26 @@ public class RoomFormController {
     }
 
     public void btnDeleteonAction(ActionEvent actionEvent) {
+        Alert alert=new Alert(Alert.AlertType.WARNING,"are you sure to delete the employe", ButtonType.YES,ButtonType.NO);
+        Optional<ButtonType> result=alert.showAndWait();
+        if(result.isPresent()&& result.get()==ButtonType.YES){
+            try {
+                roomService.deleteRoom(txtId.getText());
+                new Alert(Alert.AlertType.INFORMATION,"Deleted").show();
+                tblRooms.getItems().removeAll(tblRooms.getSelectionModel().getSelectedItem());
+                txtId.clear();
+                txtType.clear();
+                txtxKeyMoney.clear();
+                txtQty.clear();
+                loadRooms();
+            }catch (NotFoundException e){
+                new Alert(Alert.AlertType.WARNING,"No").show();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     public void btnUpdateonAction(ActionEvent actionEvent) {
@@ -110,7 +132,7 @@ public class RoomFormController {
         txtIDOnAction(actionEvent);
     }
     private void loadRooms(){
-
+       roomTms.clear();
         roomTms.addAll(
                 roomService.getAllRoom().stream().map(roomDTO -> new RoomTm(
                         roomDTO.getRoom_type_id(),roomDTO.getType(),roomDTO.getKey_money(), roomDTO.getQty()

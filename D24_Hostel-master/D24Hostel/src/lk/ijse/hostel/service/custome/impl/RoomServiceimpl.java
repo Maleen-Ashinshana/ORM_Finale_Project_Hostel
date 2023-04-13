@@ -47,7 +47,7 @@ public class RoomServiceimpl implements RoomService {
 
     @Override
     public boolean deleteRoom(String id) throws SQLException, ClassNotFoundException {
-        return false;
+        return roomDAO.delete(id);
     }
 
     @Override

@@ -33,8 +33,6 @@ public class StudentServiceIMPL implements StudentService {
 
     @Override
     public StudentDTO searchStudent(String id) throws NotFoundException {
-        /*StudentEntity se=studentDAO.search(id);
-        return new StudentDTO(se.getStudentId(),se.getStudentName(),se.getAddress(),se.getContact_number(),se.getDate_of_birth(),se.getGender());*/
         Optional<StudentEntity>studentEntity= Optional.ofNullable(studentDAO.search(id));
         if (!studentEntity.isPresent())throw new NotFoundException("Student No Found") ;
         return convertor.fromStudent(studentEntity.get());
@@ -47,6 +45,7 @@ public class StudentServiceIMPL implements StudentService {
 
     @Override
     public boolean deleteStudent(String id) throws SQLException, ClassNotFoundException {
+        //return studentDAO.deleted(convertor.toStudent(studentDTO));
         return studentDAO.delete(id);
     }
 

@@ -60,7 +60,8 @@ public class StudentDAOIMPL implements StudentDAO {
         Session session=FactoryConfiguration.getInstance().getSession();
         Transaction transaction=session.beginTransaction();
         try {
-            session.delete(id);
+            StudentEntity std=session.load(StudentEntity.class,id);
+            session.delete(std);
             transaction.commit();
             return true;
         }catch (Exception e){
@@ -71,7 +72,7 @@ public class StudentDAOIMPL implements StudentDAO {
 
     }
 
-   /* @Override
+/*    @Override
     public boolean deleted(StudentEntity entity) {
         Session session=FactoryConfiguration.getInstance().getSession();
         Transaction transaction=session.beginTransaction();

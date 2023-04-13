@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -22,6 +23,7 @@ import org.hibernate.Session;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -81,6 +83,7 @@ public class StudentFormController {
         loadStudent();
     }
     private void loadStudent(){
+        list.clear();
         list.addAll(
                 studentService
                         .getAllStudent()
@@ -165,13 +168,29 @@ public class StudentFormController {
     }
 
     public void btnSDeleteOnAction(javafx.event.ActionEvent actionEvent) {
-          /* try {
-               studentService.deleteStudent(txtId.getText());
-           } catch (SQLException e) {
-               throw new RuntimeException(e);
-           } catch (ClassNotFoundException e) {
-               throw new RuntimeException(e);
-           }*/
+        //StudentDTO studentDTO=new StudentDTO(txtId.getText());
+        Alert alert=new Alert(Alert.AlertType.WARNING,"are you sure to delete the employe", ButtonType.YES,ButtonType.NO);
+        Optional<ButtonType> result=alert.showAndWait();
+        if(result.isPresent()&& result.get()==ButtonType.YES){
+            try {
+                studentService.deleteStudent(txtId.getText());
+                    new Alert(Alert.AlertType.INFORMATION,"Deleted").show();
+                    tblStudent.getItems().removeAll(tblStudent.getSelectionModel().getSelectedItem());
+                    txtId.clear();
+                    txtName.clear();
+                    txtAddress.clear();
+                    txtxTel.clear();
+                    txtDOB.clear();
+                    txtGender.clear();
+                    loadStudent();
+                }catch (NotFoundException e){
+                new Alert(Alert.AlertType.WARNING,"No").show();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     public void btnSUpdateOnAction(javafx.event.ActionEvent actionEvent) {
@@ -188,7 +207,7 @@ public class StudentFormController {
             txtxTel.clear();
             txtDOB.clear();
             txtGender.clear();
-            loadStudent();
+
         }catch (NotFoundException e){
             new Alert(Alert.AlertType.ERROR,e.getMessage());
         }

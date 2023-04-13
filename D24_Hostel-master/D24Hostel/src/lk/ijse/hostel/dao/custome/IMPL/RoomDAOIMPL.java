@@ -23,6 +23,7 @@ public class RoomDAOIMPL implements RoomDAO {
         Session session= FactoryConfiguration.getInstance().getSession();
         Transaction transaction=session.beginTransaction();
         try {
+
             session.save(entity);
             transaction.commit();
             return true;
@@ -53,7 +54,8 @@ public class RoomDAOIMPL implements RoomDAO {
         Session session=FactoryConfiguration.getInstance().getSession();
         Transaction transaction=session.beginTransaction();
         try {
-            session.delete(id);
+            RoomEntity std=session.load(RoomEntity.class,id);
+            session.delete(std);
             transaction.commit();
             return true;
         }catch (Exception e){
