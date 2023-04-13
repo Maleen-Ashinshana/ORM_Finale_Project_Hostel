@@ -16,6 +16,8 @@ import lk.ijse.hostel.service.exception.DuplicateException;
 import lk.ijse.hostel.service.exception.NotFoundException;
 
 import lk.ijse.hostel.tm.StudentTm;
+import lk.ijse.hostel.util.FactoryConfiguration;
+import org.hibernate.Session;
 
 
 import java.sql.SQLException;
@@ -69,13 +71,23 @@ public class StudentFormController {
     private Pattern dobPattern;
     private Pattern genderPattern;
     public StudentService studentService;
-    ObservableList<StudentTm>list=FXCollections.observableArrayList();
+    private ObservableList<StudentTm>list=FXCollections.observableArrayList();
 
     public void initialize() throws SQLException, ClassNotFoundException {
         pattern();
         studentView();
-        loadAllStudent();
-        this.studentService= (StudentService) ServiceFactory.getInstance().getService(ServiceTypes.STUDENT);
+        //loadStudent();
+        studentService= (StudentService) ServiceFactory.getInstance().getService(ServiceTypes.STUDENT);
+    }
+    private void loadStudent(){
+        list.addAll(
+                studentService
+                        .getAllStudent()
+                        .stream()
+                        .map(studentDTO -> new StudentTm(
+                studentDTO.getStudentId(),studentDTO.getStudentName(),studentDTO.getAddress(),studentDTO.getContact_number(),studentDTO.getDate_of_birth(),studentDTO.getGender())).collect(Collectors.toList()));
+
+        tblStudent.setItems(list);
     }
     public void pattern(){
         idPattern=Pattern.compile("[S][0][0-9]{1,}");
@@ -152,7 +164,13 @@ public class StudentFormController {
     }
 
     public void btnSDeleteOnAction(javafx.event.ActionEvent actionEvent) {
-
+          /* try {
+               studentService.deleteStudent(txtId.getText());
+           } catch (SQLException e) {
+               throw new RuntimeException(e);
+           } catch (ClassNotFoundException e) {
+               throw new RuntimeException(e);
+           }*/
     }
 
     public void btnSUpdateOnAction(javafx.event.ActionEvent actionEvent) {
@@ -175,28 +193,32 @@ public class StudentFormController {
         coltel.setCellValueFactory(new PropertyValueFactory<>("contact_number"));
         colDOB.setCellValueFactory(new PropertyValueFactory<>("date_of_birth"));
         colGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
-        loadAllStudent();
+
     }
-    private void loadAllStudent() throws SQLException {
+    /*private void loadAllStudent() throws SQLException {
        // System.out.println(studentTM.getStudentId());
-        /*System.out.println("**************");
-        List<StudentTm> collect=studentService.getAllStudent().stream().map(studentDTO -> new StudentTm(
+
+*//*        Session session= FactoryConfiguration.getInstance().getSession();
+        System.out.println("**************");
+        List<StudentTm> collect=
+                studentService.getAllStudent(session).stream().map(studentDTO -> new StudentTm(
                 studentDTO.getStudentId(), studentDTO.getStudentName(), studentDTO.getAddress(), studentDTO.getContact_number(),
                 studentDTO.getDate_of_birth(), studentDTO.getGender())).collect(Collectors.toList());
 
 
         System.out.println("++++++++++++++++");
         tblStudent.setItems(FXCollections.observableArrayList(collect));
-        System.out.println("-----------------");*/
+        System.out.println("-----------------");*//*
 
-        for (StudentDTO studentDTO:studentService.getAllStudent()) {
+        *//*for (StudentDTO studentDTO:studentService.getAllStudent()) {
             StudentTm studentTm=new StudentTm(studentDTO.getStudentId(),
                     studentDTO.getStudentName(),studentDTO.getAddress(),
                     studentDTO.getContact_number(),studentDTO.getDate_of_birth(),studentDTO.getGender()
             );
             list.add(studentTm);
             tblStudent.setItems(list);
-        }
+        }*//*
 
-    }
+        t
+    }*/
 }

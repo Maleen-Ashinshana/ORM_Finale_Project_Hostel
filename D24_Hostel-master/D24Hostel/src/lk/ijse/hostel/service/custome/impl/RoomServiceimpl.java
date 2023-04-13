@@ -12,8 +12,10 @@ import lk.ijse.hostel.service.custome.RoomService;
 import lk.ijse.hostel.service.exception.DuplicateException;
 import lk.ijse.hostel.service.exception.NotFoundException;
 import lk.ijse.hostel.service.util.Convertor;
+import org.hibernate.Session;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -53,5 +55,12 @@ public class RoomServiceimpl implements RoomService {
         return roomDAO.getAll().stream().map(roomEntity -> convertor.froRoom(roomEntity)).collect(Collectors.toList());
                 /*roomDAO*/
         //return roomDAO.getAll().stream().map(entity->convertor.fromStudent(entity)).collect(Collectors.toList());
+
+        /*ArrayList<RoomDTO> roomDTOS=new ArrayList<>();
+        ArrayList<RoomEntity> all= (ArrayList<RoomEntity>) roomDAO.getAll();
+        for (RoomEntity roomEntity:all) {
+            roomDTOS.add(new RoomDTO(roomEntity.getRoom_type_id(),roomEntity.getType(),roomEntity.getKey_money(),roomEntity.getQty()));
+        }
+        return roomDTOS;*/
     }
 }

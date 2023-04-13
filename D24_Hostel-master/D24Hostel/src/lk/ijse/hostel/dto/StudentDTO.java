@@ -16,11 +16,11 @@ public class StudentDTO {
     private int contact_number;
     private String date_of_birth;
     private String gender;
-    private List<ReservationDTO> reservationDTOS;
+    //private List<ReservationDTO> reservationDTOS;
 
     public StudentDTO(String studentId, String studentName, String address, int contact_number, String date_of_birth, String gender) {
         this.studentId = studentId;
-        StudentName = studentName;
+        this.StudentName = studentName;
         this.address = address;
         this.contact_number = contact_number;
         this.date_of_birth = date_of_birth;
@@ -78,13 +78,13 @@ public class StudentDTO {
         this.gender = gender;
     }
 
-    public List<ReservationDTO> getReservationDTOS() {
+   /* public List<ReservationDTO> getReservationDTOS() {
         return reservationDTOS;
     }
 
     public void setReservationDTOS(List<ReservationDTO> reservationDTOS) {
         this.reservationDTOS = reservationDTOS;
-    }
+    }*/
 
     @Override
     public String toString() {

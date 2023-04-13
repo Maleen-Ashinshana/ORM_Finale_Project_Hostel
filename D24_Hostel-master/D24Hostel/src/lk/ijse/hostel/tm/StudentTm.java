@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-
+@Data
 public class StudentTm {
     private String studentId;
     private String StudentName;

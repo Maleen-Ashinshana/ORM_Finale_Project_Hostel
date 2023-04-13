@@ -5,6 +5,7 @@ import lk.ijse.hostel.dto.StudentDTO;
 import lk.ijse.hostel.service.SuperSevice;
 import lk.ijse.hostel.service.exception.DuplicateException;
 import lk.ijse.hostel.service.exception.NotFoundException;
+import org.hibernate.Session;
 
 import java.sql.SQLException;
 import java.util.List;

@@ -8,52 +8,44 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.sql.Date;
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @ToString
 @Table(name = "reservation")
 public class ReservationEntity implements SuperEntity {
     @Id
     private String id;
-    private Date Date;
+    private String Date;
     private String status;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "student_Id")
-    private StudentEntity studentEntity;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "reservation-Id")
+
+    @ManyToOne
+    private StudentEntity studentEntity;
+    @ManyToOne()
     private RoomEntity room;
 
-
-    public ReservationEntity(String id, java.sql.Date date, String status) {
+    public ReservationEntity(String id, String date, String status) {
         this.id = id;
         Date = date;
         this.status = status;
     }
 
-    public ReservationEntity() {
-    }
+    //    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "student_Id")
+//    private StudentEntity studentEntity;
+//
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "reservation-Id")
+//    private RoomEntity room;
 
-    public String getId() {
-        return id;
-    }
+  /*  @ToString.Exclude
+    @
+    OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private StudentEntity studentEntity;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    @ToString.Exclude
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private RoomEntity room;*/
 
-    public java.sql.Date getDate() {
-        return Date;
-    }
-
-    public void setDate(java.sql.Date date) {
-        Date = date;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 }

@@ -1,17 +1,21 @@
 package lk.ijse.hostel.service.util;
 
+import lk.ijse.hostel.dto.ReservationDTO;
 import lk.ijse.hostel.dto.RoomDTO;
 import lk.ijse.hostel.dto.StudentDTO;
 import lk.ijse.hostel.dto.UserDTO;
+import lk.ijse.hostel.entity.ReservationEntity;
 import lk.ijse.hostel.entity.RoomEntity;
 import lk.ijse.hostel.entity.StudentEntity;
 
 public class Convertor {
     public StudentDTO fromStudent(StudentEntity studentEntity){
+        System.out.println(studentEntity.toString());
         return new StudentDTO(studentEntity.getStudentId(),studentEntity.getStudentName(),studentEntity.getAddress(),studentEntity.getContact_number(),studentEntity.getDate_of_birth(),studentEntity.getGender());
 
     }
     public StudentEntity toStudent(StudentDTO studentDTO){
+        System.out.println(studentDTO.toString());
         return new StudentEntity(studentDTO.getStudentId(),studentDTO.getStudentName(),studentDTO.getAddress(),studentDTO.getContact_number(),studentDTO.getDate_of_birth(),studentDTO.getGender());
 
     }
@@ -20,6 +24,12 @@ public class Convertor {
     }
     public RoomEntity toRoom(RoomDTO roomDTO){
         return new RoomEntity(roomDTO.getRoom_type_id(),roomDTO.getType(),roomDTO.getKey_money(), roomDTO.getQty());
+    }
+    public ReservationDTO froRe(ReservationEntity entity){
+        return new ReservationDTO(entity.getId(), entity.getDate(),entity.getStatus());
+    }
+    public ReservationEntity toRe(ReservationDTO reservationDTO){
+        return new ReservationEntity(reservationDTO.getId(),reservationDTO.getDate(),reservationDTO.getStatus());
     }
 
    /* public RoomEntity toRoom(RoomEntity entity) {

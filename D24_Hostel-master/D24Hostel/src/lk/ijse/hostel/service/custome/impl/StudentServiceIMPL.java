@@ -9,6 +9,7 @@ import lk.ijse.hostel.service.custome.StudentService;
 import lk.ijse.hostel.service.exception.DuplicateException;
 import lk.ijse.hostel.service.exception.NotFoundException;
 import lk.ijse.hostel.service.util.Convertor;
+import org.hibernate.Session;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -46,12 +47,16 @@ public class StudentServiceIMPL implements StudentService {
 
     @Override
     public boolean deleteStudent(String id) throws SQLException, ClassNotFoundException {
-        return false;
+        return studentDAO.delete(id);
     }
 
     @Override
     public List<StudentDTO> getAllStudent() {
-        return studentDAO.getAll().stream().map(entity -> convertor.fromStudent(entity)).collect(Collectors.toList());
+        System.out.println("***********");
+        return studentDAO.getAll().stream().map(student -> convertor.fromStudent(student)).collect(Collectors.toList());
+        //return studentDAO.getAll().stream().map(studentEntity-> convertor.fromStudent(studentEntity)).collect(Collectors.toList());
+        //return studentDAO.getAll().stream().map(student -> new StudentDTO(student.getStudentId(),student.getStudentName(),student.getAddress(),student.getContact_number(),student.getDate_of_birth(),student.getGender())).collect(Collectors.toList());
+        //return studentDAO.getAll().stream().map(entity -> convertor.fromStudent(entity)).collect(Collectors.toList());
 
     }
 }

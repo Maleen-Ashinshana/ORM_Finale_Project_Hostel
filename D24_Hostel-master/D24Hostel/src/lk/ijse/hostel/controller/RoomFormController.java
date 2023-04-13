@@ -17,8 +17,11 @@ import lk.ijse.hostel.service.custome.RoomService;
 import lk.ijse.hostel.service.exception.DuplicateException;
 import lk.ijse.hostel.service.exception.NotFoundException;
 import lk.ijse.hostel.tm.RoomTm;
+import lk.ijse.hostel.util.FactoryConfiguration;
+import org.hibernate.Session;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class RoomFormController {
@@ -33,6 +36,7 @@ public class RoomFormController {
     public TableColumn colKeyMoney;
     public TableColumn colQty;
     public RoomService roomService;
+    private final ObservableList<RoomDTO>dtos=FXCollections.observableArrayList();
     private ObservableList<RoomTm> roomTms= FXCollections.observableArrayList();
     public void initialize() throws SQLException, ClassNotFoundException {
         RoomtView();
@@ -43,7 +47,7 @@ public class RoomFormController {
         colType.setCellValueFactory(new PropertyValueFactory<>("type"));
         colKeyMoney.setCellValueFactory(new PropertyValueFactory<>("key_money"));
         colQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
-       loadRooms();
+       //loadRooms();
     }
 
     public void txtIDOnAction(ActionEvent actionEvent) {
@@ -103,6 +107,14 @@ public class RoomFormController {
                         roomDTO.getRoom_type_id(),roomDTO.getType(),roomDTO.getKey_money(), roomDTO.getQty()
                 )).collect(Collectors.toList()));
         tblRooms.setItems(roomTms);
+        /*List<RoomDTO> roomDTOS=null;
+        roomDTOS=roomService.getAllRoom(session);
+        for (RoomDTO roomDTO:roomDTOS) {
+            RoomDTO roomDTO1=new RoomDTO(roomDTO.getRoom_type_id(),
+                    roomDTO.getType(),roomDTO.getKey_money(), roomDTO.getQty());
+                   dtos.add(roomDTO1);
+                   tblRooms.setItems(dtos);
+        }*/
     }
 
 }

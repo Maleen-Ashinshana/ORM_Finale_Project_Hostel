@@ -23,6 +23,7 @@ public interface CrudDAO<T extends SuperEntity,ID extends Serializable> extends 
     public boolean save(T  entity) throws ConstraintViolationException;
     public boolean update(T entity)throws ConstraintViolationException;
      public boolean delete(String id) ;
+    /*public boolean deleted(T entity) ;*/
              /*NotFoundException*/;
      public T search(ID id) throws ConstraintViolationException;
      public List<T> getAll();

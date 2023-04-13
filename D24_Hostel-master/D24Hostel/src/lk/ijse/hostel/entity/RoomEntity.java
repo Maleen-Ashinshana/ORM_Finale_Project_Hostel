@@ -5,11 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Data
 
-
+@NoArgsConstructor
 @Table(name = "room")
 public class RoomEntity implements SuperEntity {
     @Id
@@ -17,48 +19,15 @@ public class RoomEntity implements SuperEntity {
     private String type;
     private String key_money;
     private int qty;
-    @OneToMany(mappedBy = "room",cascade = CascadeType.ALL)
-    private List<ReservationEntity> reservationEntities;
-
-    public RoomEntity() {
-    }
+    /*@OneToMany(mappedBy = "room",cascade = CascadeType.ALL)
+    private List<ReservationEntity> reservationEntities;*/
+   /* @OneToMany(mappedBy = "room",targetEntity = ReservationEntity.class)
+    private List<ReservationEntity> list = new ArrayList<>();*/
 
     public RoomEntity(String room_type_id, String type, String key_money, int qty) {
         this.room_type_id = room_type_id;
         this.type = type;
         this.key_money = key_money;
-        this.qty = qty;
-    }
-
-    public String getRoom_type_id() {
-        return room_type_id;
-    }
-
-    public void setRoom_type_id(String room_type_id) {
-        this.room_type_id = room_type_id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getKey_money() {
-        return key_money;
-    }
-
-    public void setKey_money(String key_money) {
-        this.key_money = key_money;
-    }
-
-    public int getQty() {
-        return qty;
-    }
-
-    public void setQty(int qty) {
         this.qty = qty;
     }
 }

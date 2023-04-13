@@ -42,6 +42,11 @@ public class UserDAOIMPL implements UserDAO {
         return false;
     }
 
+   /* @Override
+    public boolean deleted(UserEntity entity) {
+        return false;
+    }*/
+
     @Override
     public UserEntity search(String s) throws ConstraintViolationException {
         return null;

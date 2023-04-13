@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RoomDAOIMPL implements RoomDAO {
@@ -49,8 +50,23 @@ public class RoomDAOIMPL implements RoomDAO {
 
     @Override
     public boolean delete(String id) {
-        return false;
+        Session session=FactoryConfiguration.getInstance().getSession();
+        Transaction transaction=session.beginTransaction();
+        try {
+            session.delete(id);
+            transaction.commit();
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+            return false;
+        }
     }
+
+    /*@Override
+    public boolean deleted(RoomEntity entity) {
+        return false;
+    }*/
 
     @Override
     public RoomEntity search(String s) throws ConstraintViolationException {
@@ -93,6 +109,61 @@ public class RoomDAOIMPL implements RoomDAO {
             e.printStackTrace();
             return null;
         }
+
+        /*Session session=FactoryConfiguration.getInstance().getSession();
+        Transaction transaction=session.beginTransaction();
+        List<RoomEntity> entities=new ArrayList<>();
+
+        try {
+            Query query=session.createQuery("from RoomEntity ");
+            List<RoomEntity> roomEntities=query.list();
+            System.out.println(roomEntities);
+
+            transaction.commit();
+            return (ArrayList<RoomEntity>) roomEntities;
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+            return null;
+        }*/
+
     }
+
+    @Override
+    public long calcAllRooms() {
+        Session session=FactoryConfiguration.getInstance().getSession();
+        Transaction transaction= session.beginTransaction();
+
+        try {
+            Long aLong=(Long) session.createQuery("SELECT COUNT (*) FROM RoomEntity ").getSingleResult();
+            System.out.println(aLong);
+            transaction.commit();
+            return aLong;
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+            return 0;
+        }
+
     }
+
+    @Override
+    public ArrayList<String> loadRoomsIds() {
+        Session session=FactoryConfiguration.getInstance().getSession();
+        Transaction transaction= session.beginTransaction();
+        List<RoomEntity> roomEntities=new ArrayList<>();
+
+        try {
+            Query query= session.createQuery("SELECT id from RoomEntity ");
+            List<String> list=query.list();
+            System.out.println(list);
+            transaction.commit();
+            return(ArrayList<String>) list;
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+            return null;
+        }
+    }
+}
 

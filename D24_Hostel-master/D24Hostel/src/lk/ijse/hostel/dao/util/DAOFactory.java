@@ -4,11 +4,13 @@ package lk.ijse.hostel.dao.util;
 /*import lk.ijse.hostel.dao.custom.impl.RoomDAOIMPL;
 import lk.ijse.hostel.dao.custom.impl.StudentDAOIMPL;
 import lk.ijse.hostel.dao.custom.impl.UserDAOIMPL;*/
+import lk.ijse.hostel.dao.custome.IMPL.ReservaionDAOIMPL;
 import lk.ijse.hostel.dao.custome.IMPL.RoomDAOIMPL;
 import lk.ijse.hostel.dao.custome.IMPL.StudentDAOIMPL;
 import lk.ijse.hostel.dao.custome.IMPL.UserDAOIMPL;
 
-public class DAOFactory {
+public class
+DAOFactory {
     private static DAOFactory daoFactory;
 
     public DAOFactory() {
@@ -25,12 +27,8 @@ public class DAOFactory {
                 return new StudentDAOIMPL();
             case ROOM:
                 return new RoomDAOIMPL();
-        /*    case STUDENT:
-                return new StudentDAOIMPL();
-            case ROOM:
-                return new RoomDAOIMPL();*/
-            /*case RESEVATION:
-                return new Res*/
+            case RESEVATION:
+                return new ReservaionDAOIMPL();
             default:
                 return null;
         }

@@ -32,6 +32,8 @@ public class StudentDAOIMPL implements StudentDAO {
             transaction.rollback();
             return false;
 
+        }finally {
+            session.close();
         }
     }
 
@@ -47,14 +49,45 @@ public class StudentDAOIMPL implements StudentDAO {
             e.printStackTrace();
             transaction.rollback();
             return false;
+        }finally {
+            session.close();
         }
 
     }
 
     @Override
     public boolean delete(String id) {
-        return false;
+        Session session=FactoryConfiguration.getInstance().getSession();
+        Transaction transaction=session.beginTransaction();
+        try {
+            session.delete(id);
+            transaction.commit();
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+            return false;
+        }
+
     }
+
+   /* @Override
+    public boolean deleted(StudentEntity entity) {
+        Session session=FactoryConfiguration.getInstance().getSession();
+        Transaction transaction=session.beginTransaction();
+        try {
+            session.delete(entity);
+            transaction.commit();
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+            return false;
+        }finally {
+            session.close();
+        }
+
+    }*/
 
     @Override
     public StudentEntity search(String s) throws ConstraintViolationException {
@@ -68,13 +101,15 @@ public class StudentDAOIMPL implements StudentDAO {
             e.printStackTrace();
             //transaction.rollback();
             return null;
+        }finally {
+            session.close();
         }
 
     }
 
     @Override
     public List<StudentEntity> getAll() {
-        Session session=FactoryConfiguration.getInstance().getSession();
+        /*Session session=FactoryConfiguration.getInstance().getSession();
 
         Query<StudentEntity> query=session.createQuery("from StudentEntity ");
         List<StudentEntity> list=query.list();
@@ -89,7 +124,7 @@ public class StudentDAOIMPL implements StudentDAO {
 
         }
         return list;
-
+*/
 
         /*String hql="From StudentEntity";
         Query query= session2.createQuery(hql);
@@ -105,5 +140,60 @@ public class StudentDAOIMPL implements StudentDAO {
         }
 
         return result;*/
+
+
+
+        Session session=FactoryConfiguration.getInstance().getSession();
+        List<StudentEntity> list;
+        try {
+            Query query=session.createQuery("from StudentEntity ");
+            list=query.list();
+            for (StudentEntity studentEntity:list) {
+                System.out.println(studentEntity.getStudentId());
+            }
+            System.out.println(list);
+            return list;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public long calcAllStudent() {
+        Session session=FactoryConfiguration.getInstance().getSession();
+        Transaction transaction= session.beginTransaction();
+
+        try {
+            Long aLong=(Long) session.createQuery("SELECT COUNT (*) FROM StudentEntity ").getSingleResult();
+            System.out.println(aLong);
+            transaction.commit();
+            return aLong;
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+            return 0;
+        }
+
+    }
+
+    @Override
+    public ArrayList<String> loadStudentIdS() {
+        Session session=FactoryConfiguration.getInstance().getSession();
+        Transaction transaction= session.beginTransaction();
+        List<StudentEntity> studentEntityList=new ArrayList<>();
+
+        try {
+            Query query= session.createQuery("SELECT id from StudentEntity ");
+            List<String> list=query.list();
+            System.out.println(list);
+            transaction.commit();
+            return(ArrayList<String>) list;
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+            return null;
+        }
+
     }
 }
