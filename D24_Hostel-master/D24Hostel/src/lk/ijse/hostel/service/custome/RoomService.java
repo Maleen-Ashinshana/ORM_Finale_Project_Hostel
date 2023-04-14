@@ -16,4 +16,6 @@ public interface RoomService extends SuperSevice {
     boolean updateRoom(RoomDTO roomDTO) throws NotFoundException;
     boolean deleteRoom(String id) throws SQLException,ClassNotFoundException;
     List<RoomDTO> getAllRoom();
+
+    boolean qty(String id);
 }

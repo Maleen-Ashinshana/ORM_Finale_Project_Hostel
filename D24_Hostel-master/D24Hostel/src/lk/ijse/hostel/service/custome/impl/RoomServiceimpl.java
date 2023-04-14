@@ -53,14 +53,10 @@ public class RoomServiceimpl implements RoomService {
     @Override
     public List<RoomDTO> getAllRoom() {
         return roomDAO.getAll().stream().map(roomEntity -> convertor.froRoom(roomEntity)).collect(Collectors.toList());
-                /*roomDAO*/
-        //return roomDAO.getAll().stream().map(entity->convertor.fromStudent(entity)).collect(Collectors.toList());
+    }
 
-        /*ArrayList<RoomDTO> roomDTOS=new ArrayList<>();
-        ArrayList<RoomEntity> all= (ArrayList<RoomEntity>) roomDAO.getAll();
-        for (RoomEntity roomEntity:all) {
-            roomDTOS.add(new RoomDTO(roomEntity.getRoom_type_id(),roomEntity.getType(),roomEntity.getKey_money(),roomEntity.getQty()));
-        }
-        return roomDTOS;*/
+    @Override
+    public boolean qty(String id) {
+        return roomDAO.search(id).getQty()>0;
     }
 }

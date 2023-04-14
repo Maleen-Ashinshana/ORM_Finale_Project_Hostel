@@ -8,6 +8,8 @@ import lk.ijse.hostel.entity.ReservationEntity;
 import lk.ijse.hostel.entity.RoomEntity;
 import lk.ijse.hostel.entity.StudentEntity;
 
+import java.sql.Date;
+
 public class Convertor {
     public StudentDTO fromStudent(StudentEntity studentEntity){
         System.out.println(studentEntity.toString());
@@ -25,14 +27,14 @@ public class Convertor {
     public RoomEntity toRoom(RoomDTO roomDTO){
         return new RoomEntity(roomDTO.getRoom_type_id(),roomDTO.getType(),roomDTO.getKey_money(), roomDTO.getQty());
     }
-    public ReservationDTO froRe(ReservationEntity entity){
-        return new ReservationDTO(entity.getId(), entity.getDate(),entity.getStatus());
+    public ReservationDTO toReservation(ReservationEntity entity) {
+        return new ReservationDTO(entity.getId(), entity.getDate(), entity.getStatus(),
+                new StudentDTO(entity.getStudentEntity().getStudentId()),new RoomDTO(entity.getRoom().getRoom_type_id()));
     }
-    public ReservationEntity toRe(ReservationDTO reservationDTO){
-        return new ReservationEntity(reservationDTO.getId(),reservationDTO.getDate(),reservationDTO.getStatus());
+    public ReservationEntity fromReservation(ReservationDTO dto) {
+        return new ReservationEntity(dto.getId(), dto.getDate(), dto.getStatus()
+                ,new StudentEntity(dto.getStudent().getStudentId())
+                ,new RoomEntity(dto.getRoom().getRoom_type_id())
+        );
     }
-
-   /* public RoomEntity toRoom(RoomEntity entity) {
-        return null;
-    }*/
 }

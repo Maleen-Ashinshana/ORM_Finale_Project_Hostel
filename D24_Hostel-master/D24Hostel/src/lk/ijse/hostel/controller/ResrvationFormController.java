@@ -15,6 +15,7 @@ import lk.ijse.hostel.service.ServiceFactory;
 import lk.ijse.hostel.service.ServiceTypes;
 import lk.ijse.hostel.service.custome.ReservationService;
 import lk.ijse.hostel.service.custome.RoomService;
+import lk.ijse.hostel.service.custome.StudentService;
 import lk.ijse.hostel.service.exception.DuplicateException;
 import lk.ijse.hostel.tm.ReservationTm;
 
@@ -56,20 +57,26 @@ public class ResrvationFormController {
     @FXML
     private TableColumn<?, ?> colStatus;
     public ReservationService reservationService;
+    public RoomService roomService;
+    public StudentService studentService;
     public void initialize() throws SQLException, ClassNotFoundException {
-
+        this.reservationService= (ReservationService) ServiceFactory.getInstance().getService(ServiceTypes.RESEVATION);
+        this.roomService= (RoomService) ServiceFactory.getInstance().getService(ServiceTypes.ROOM);
+        this.studentService= (StudentService) ServiceFactory.getInstance().getService(ServiceTypes.STUDENT);
         reservationView();
         ObservableList<String> list=FXCollections.observableArrayList("Paid","Non-Paid");
         cmbStatus.setItems(list);
-        this.reservationService= (ReservationService) ServiceFactory.getInstance().getService(ServiceTypes.RESEVATION);
+
         LoadStudentIds();
+        LoadRoomTypeId();
     }
 
     public void txtIdOnActionm(ActionEvent actionEvent) {
     }
 
     public void btnRegistaion(ActionEvent actionEvent) {
-        ReservationDTO reservationDTO=new ReservationDTO(txtId.getText(),txtdate.getText(),txtStudent.getText());
+   /*if (roomService.q)*/
+        /*ReservationDTO reservationDTO=new ReservationDTO(txtId.getText(),txtdate.getText(),txtStudent.getText());
         try {
             boolean isAdded=reservationService.saveReservatoin(reservationDTO);
             if (isAdded){
@@ -82,8 +89,9 @@ public class ResrvationFormController {
             new Alert(Alert.AlertType.ERROR,"Reservation already saved ").show();
             txtId.selectAll();
             txtId.requestFocus();
-        }
-        
+        }*/
+        //ReservationDTO reservationDTO=new ReservationDTO(txtId.getText(),txtdate.getText(),cmbStudentId.)
+     /*Re*/
     }
     private void reservationView(){
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -106,4 +114,18 @@ public class ResrvationFormController {
             throw new RuntimeException();
         }
     }
+    private void LoadRoomTypeId(){
+        try {
+            ObservableList<String>observableList= FXCollections.observableArrayList();
+            ArrayList<String> idList=reservationService.loadRoomTypeID();
+
+            for (String id: idList) {
+                observableList.add(id);
+            }
+            cmbRoomId.setItems(observableList);
+        }catch (SQLException |ClassNotFoundException e){
+            throw new RuntimeException();
+        }
+    }
+
 }

@@ -30,4 +30,7 @@ public class RoomEntity implements SuperEntity {
         this.key_money = key_money;
         this.qty = qty;
     }
+
+    public RoomEntity(String room_type_id) {
+    }
 }

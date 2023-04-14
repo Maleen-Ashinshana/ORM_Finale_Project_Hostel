@@ -26,9 +26,6 @@ public class StudentEntity implements SuperEntity{
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
     private List<ReservationEntity> reservations=new ArrayList<>();
 
-    public StudentEntity(String studentId) {
-        this.studentId = studentId;
-    }
 
     public StudentEntity(String studentId, String studentName, String address, int contact_number, String date_of_birth, String gender) {
         this.studentId = studentId;
@@ -37,5 +34,9 @@ public class StudentEntity implements SuperEntity{
         this.contact_number = contact_number;
         this.date_of_birth = date_of_birth;
         this.gender = gender;
+    }
+
+    public StudentEntity(String studentId) {
+
     }
 }

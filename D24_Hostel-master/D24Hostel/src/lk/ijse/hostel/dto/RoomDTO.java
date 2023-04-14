@@ -9,7 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.List;
 
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 
 public class RoomDTO {
     private String room_type_id;
@@ -18,14 +21,15 @@ public class RoomDTO {
     private int qty;
     private List<ReservationDTO>reservationDTOS;
 
-    public RoomDTO() {
-    }
-
     public RoomDTO(String room_type_id, String type, String key_money, int qty) {
         this.room_type_id = room_type_id;
         this.type = type;
         this.key_money = key_money;
         this.qty = qty;
+    }
+
+    public RoomDTO(String room_type_id) {
+
     }
 
     public String getRoom_type_id() {
@@ -68,14 +72,4 @@ public class RoomDTO {
         this.reservationDTOS = reservationDTOS;
     }
 
-    @Override
-    public String toString() {
-        return "RoomDTO{" +
-                "room_type_id='" + room_type_id + '\'' +
-                ", type='" + type + '\'' +
-                ", key_money='" + key_money + '\'' +
-                ", qty=" + qty +
-                ", reservationDTOS=" + reservationDTOS +
-                '}';
-    }
 }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public interface RoomDAO extends CrudDAO<RoomEntity,String> {
     long calcAllRooms();
-
     ArrayList<String> loadRoomsIds();
+
+
 }

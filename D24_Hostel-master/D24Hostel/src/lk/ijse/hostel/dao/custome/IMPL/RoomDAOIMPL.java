@@ -87,20 +87,6 @@ public class RoomDAOIMPL implements RoomDAO {
 
     @Override
     public List<RoomEntity> getAll() {
-        /*Session session2=FactoryConfiguration.getInstance().getSession();
-        String hql="From RoomEntity ";
-        Query query= session2.createQuery(hql);
-        List<RoomEntity> result=query.list();
-
-        for (RoomEntity roomEntity:result) {
-            roomEntity.getRoom_type_id();
-            roomEntity.getType();
-            roomEntity.getKey_money();
-            roomEntity.getQty();
-
-        }
-
-        return result;*/
         List<RoomEntity> entities;
         try {
             Session session=FactoryConfiguration.getInstance().getSession();
@@ -111,24 +97,6 @@ public class RoomDAOIMPL implements RoomDAO {
             e.printStackTrace();
             return null;
         }
-
-        /*Session session=FactoryConfiguration.getInstance().getSession();
-        Transaction transaction=session.beginTransaction();
-        List<RoomEntity> entities=new ArrayList<>();
-
-        try {
-            Query query=session.createQuery("from RoomEntity ");
-            List<RoomEntity> roomEntities=query.list();
-            System.out.println(roomEntities);
-
-            transaction.commit();
-            return (ArrayList<RoomEntity>) roomEntities;
-        }catch (Exception e){
-            e.printStackTrace();
-            transaction.rollback();
-            return null;
-        }*/
-
     }
 
     @Override

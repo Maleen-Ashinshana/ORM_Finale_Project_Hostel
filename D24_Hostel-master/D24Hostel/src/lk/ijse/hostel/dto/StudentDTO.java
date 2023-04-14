@@ -3,12 +3,16 @@ package lk.ijse.hostel.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.List;
 
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class StudentDTO {
     private String studentId;
     private String StudentName;
@@ -16,18 +20,18 @@ public class StudentDTO {
     private int contact_number;
     private String date_of_birth;
     private String gender;
-    //private List<ReservationDTO> reservationDTOS;
+    private List<ReservationDTO> reservationDTOS;
 
     public StudentDTO(String studentId, String studentName, String address, int contact_number, String date_of_birth, String gender) {
         this.studentId = studentId;
-        this.StudentName = studentName;
+        StudentName = studentName;
         this.address = address;
         this.contact_number = contact_number;
         this.date_of_birth = date_of_birth;
         this.gender = gender;
     }
 
-    public StudentDTO() {
+    public StudentDTO(String studentId) {
     }
 
     public String getStudentId() {
@@ -78,23 +82,11 @@ public class StudentDTO {
         this.gender = gender;
     }
 
-   /* public List<ReservationDTO> getReservationDTOS() {
+    public List<ReservationDTO> getReservationDTOS() {
         return reservationDTOS;
     }
 
     public void setReservationDTOS(List<ReservationDTO> reservationDTOS) {
         this.reservationDTOS = reservationDTOS;
-    }*/
-
-    @Override
-    public String toString() {
-        return "StudentDTO{" +
-                "studentId='" + studentId + '\'' +
-                ", StudentName='" + StudentName + '\'' +
-                ", address='" + address + '\'' +
-                ", contact_number=" + contact_number +
-                ", date_of_birth='" + date_of_birth + '\'' +
-                ", gender='" + gender + '\'' +
-                '}';
     }
 }

@@ -7,9 +7,13 @@ import lk.ijse.hostel.service.exception.DuplicateException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public interface ReservationService extends SuperSevice {
     boolean saveReservatoin(ReservationDTO reservationDTO) throws DuplicateException;
 
     ArrayList<String> loadAllStudentIds() throws SQLException,ClassNotFoundException;
+
+    ArrayList<String> loadRoomTypeID()throws SQLException,ClassNotFoundException;
+    public List<ReservationDTO> getAll();
 }

@@ -8,7 +8,7 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.sql.Date;
 @Entity
-@Data
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "reservation")
@@ -18,8 +18,6 @@ public class ReservationEntity implements SuperEntity {
     private String id;
     private String Date;
     private String status;
-
-
     @ManyToOne
     @JoinColumn(name = "studentId", referencedColumnName = "studentId")
     private StudentEntity studentEntity;
@@ -33,21 +31,47 @@ public class ReservationEntity implements SuperEntity {
         this.status = status;
     }
 
-    //    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "student_Id")
-//    private StudentEntity studentEntity;
-//
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "reservation-Id")
-//    private RoomEntity room;
+    public ReservationEntity(String id, String date, String status, StudentEntity studentEntity, RoomEntity roomEntity, String status1) {
 
-  /*  @ToString.Exclude
-    @
-    OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private StudentEntity studentEntity;
+    }
 
-    @ToString.Exclude
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private RoomEntity room;*/
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getDate() {
+        return Date;
+    }
+
+    public void setDate(String date) {
+        Date = date;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public StudentEntity getStudentEntity() {
+        return studentEntity;
+    }
+
+    public void setStudentEntity(StudentEntity studentEntity) {
+        this.studentEntity = studentEntity;
+    }
+
+    public RoomEntity getRoom() {
+        return room;
+    }
+
+    public void setRoom(RoomEntity room) {
+        this.room = room;
+    }
 }
