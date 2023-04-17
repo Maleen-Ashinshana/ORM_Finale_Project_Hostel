@@ -74,7 +74,6 @@ public class ResrvationFormController {
         cmbStatus.setItems(list);
         LoadStudentIds();
         LoadRoomTypeId();
-
     }
     private void loadAllReservation(){
         list.clear();
@@ -83,6 +82,9 @@ public class ResrvationFormController {
                         new ReservationTm(reservationDTO.getId(), reservationDTO.getDate(), reservationDTO.getStatus(),
                                 reservationDTO.getStudent(), reservationDTO.getRoom())).collect(Collectors.toList()));
         tblReservation.setItems(list);
+        for (ReservationDTO reservationDTO : reservationService.getAll()) {
+            System.out.println(reservationDTO);
+        }
 
     }
 
@@ -95,17 +97,15 @@ public class ResrvationFormController {
         String status=cmbStatus.getSelectionModel().getSelectedItem().toString();
 
         ReservationDTO  reservationDTO=new ReservationDTO(txtId.getText(),txtdate.getText(),status,studentId,roomId);
-
         System.out.println(roomId);
         try {
             boolean isAdded=reservationService.saveReservatoin(reservationDTO);
-
             if (isAdded) {
                 new Alert(Alert.AlertType.CONFIRMATION,"Yes").show();
-                tblReservation.getItems().add(new ReservationTm(reservationDTO.getId(),reservationDTO.getDate(),reservationDTO.getStatus(),reservationDTO.getStudent(),reservationDTO.getRoom()));
+                tblReservation.getItems().add(new ReservationTm(reservationDTO.getId(),reservationDTO.getDate(),
+                        reservationDTO.getStatus(),reservationDTO.getStudent(),reservationDTO.getRoom()));
                 txtId.clear();
                 txtdate.clear();
-
             }else{
                 new Alert(Alert.AlertType.ERROR,"No").show();
             }
@@ -114,6 +114,12 @@ public class ResrvationFormController {
         }
     }
     private void reservationView(){
+        /*colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        coldate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        colRoomId.setCellValueFactory(new PropertyValueFactory<>("room"));
+        colStudenrId.setCellValueFactory(new PropertyValueFactory<>("student"));
+        colStatus.setCellValueFactory(new PropertyValueFactory<>(" status"));*/
+
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         coldate.setCellValueFactory(new PropertyValueFactory<>("date"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
@@ -123,6 +129,7 @@ public class ResrvationFormController {
     }
 
     public void btnUpdateOnACtion(ActionEvent actionEvent) {
+
     }
     private void LoadStudentIds(){
         try {

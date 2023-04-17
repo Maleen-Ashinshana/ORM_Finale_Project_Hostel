@@ -6,6 +6,8 @@ import lk.ijse.hostel.dao.custome.StudentDAO;
 import lk.ijse.hostel.dao.util.DAOFactory;
 import lk.ijse.hostel.dao.util.DaoTypes;
 import lk.ijse.hostel.dto.ReservationDTO;
+import lk.ijse.hostel.dto.RoomDTO;
+import lk.ijse.hostel.dto.StudentDTO;
 import lk.ijse.hostel.entity.ReservationEntity;
 import lk.ijse.hostel.entity.RoomEntity;
 import lk.ijse.hostel.entity.StudentEntity;
@@ -56,7 +58,15 @@ public class ReservationServiceIMPL implements ReservationService {
 
     @Override
     public List<ReservationDTO> getAll() {
-        return reservationDAO.getAll().stream().map(reservationEntity -> convertor.toReservation(reservationEntity)).collect(Collectors.toList());
+        List<ReservationDTO> list=new ArrayList<>();
+        for (ReservationEntity entity : reservationDAO.getAll()) {
+            list.add(new ReservationDTO(entity.getId(), entity.getDate(), entity.getStatus(), entity.getStudentEntity().getStudentId(),(entity.getRoom().getRoom_type_id())));
+        }
+        return list;
+        //return reservationDAO.getAll().stream().map(reservationEntity -> convertor.fromReservation(reservationEntity)).collect(Collectors.toList());
+        //return reservationDAO.getAll().stream().map(reservationEntity -> new ReservationDTO(reservationEntity.getId(),reservationEntity.getDate(),reservationEntity.getStatus(),new StudentDTO(reservationEntity.getStudentEntity().getStudentId()),new RoomDTO(reservationEntity.getRoom().getRoom_type_id()))).collect(Collectors.toList());
+        //return reservationDAO.getAll().stream().map(reservationEntity -> convertor.fromReservation(reservationEntity)).collect(Collectors.toList());
+        //return reservationDAO.getAll().stream().map(reservationEntity -> convertor.toReservation(reservationEntity)).collect(Collectors.toList());
     }
 
     @Override

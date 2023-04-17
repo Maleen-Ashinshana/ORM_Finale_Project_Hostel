@@ -66,10 +66,7 @@ public class ReservaionDAOIMPL implements ReservationDAO {
         }
     }
 
-    /*@Override
-    public boolean deleted(ReservationEntity entity) {
-        return false;
-    }*/
+
 
     @Override
     public ReservationEntity search(String s) throws ConstraintViolationException {
@@ -93,7 +90,19 @@ public class ReservaionDAOIMPL implements ReservationDAO {
 
     @Override
     public List<ReservationEntity> getAll() {
-        Session session=FactoryConfiguration.getInstance().getSession();
+
+        List<ReservationEntity> entities;
+        try {
+            Session session=FactoryConfiguration.getInstance().getSession();
+            Query query=session.createQuery("from ReservationEntity ");
+            entities=query.list();
+            return  entities;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+        /*Session session=FactoryConfiguration.getInstance().getSession();
         List<ReservationEntity> list;
         try {
             Query query=session.createQuery("from ReservationEntity ");
@@ -106,7 +115,7 @@ public class ReservaionDAOIMPL implements ReservationDAO {
         }catch (Exception e){
             e.printStackTrace();
             return null;
-        }
+        }*/
 
         /*List<ReservationEntity> list;
         try {
