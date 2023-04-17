@@ -1,5 +1,6 @@
 package lk.ijse.hostel.entity;
 
+import lk.ijse.hostel.dto.StudentDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,6 +38,6 @@ public class StudentEntity implements SuperEntity{
     }
 
     public StudentEntity(String studentId) {
-
+        this.studentId = studentId;
     }
 }

@@ -4,6 +4,7 @@ import lk.ijse.hostel.dao.custome.ReservationDAO;
 import lk.ijse.hostel.dao.exception.ConstraintViolationException;
 import lk.ijse.hostel.entity.ReservationEntity;
 import lk.ijse.hostel.entity.RoomEntity;
+import lk.ijse.hostel.entity.StudentEntity;
 import lk.ijse.hostel.util.FactoryConfiguration;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -21,7 +22,7 @@ public class ReservaionDAOIMPL implements ReservationDAO {
     public boolean save(ReservationEntity entity) throws ConstraintViolationException {
         Session session= FactoryConfiguration.getInstance().getSession();
         Transaction transaction=session.beginTransaction();
-
+        System.out.println(entity);
         try {
             session.save(entity);
             transaction.commit();
@@ -86,9 +87,28 @@ public class ReservaionDAOIMPL implements ReservationDAO {
     }
 
     @Override
-    public List<ReservationEntity> getAll() {
+    public ReservationEntity findType(String type) throws ConstraintViolationException {
+        return null;
+    }
 
+    @Override
+    public List<ReservationEntity> getAll() {
+        Session session=FactoryConfiguration.getInstance().getSession();
         List<ReservationEntity> list;
+        try {
+            Query query=session.createQuery("from ReservationEntity ");
+            list=query.list();
+            for (ReservationEntity entity:list) {
+                System.out.println(entity.getId());
+            }
+            System.out.println(list);
+            return list;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+        /*List<ReservationEntity> list;
         try {
              Session session = FactoryConfiguration.getInstance().getSession();
             Query query = session.createQuery("from ReservationEntity ");
@@ -97,6 +117,6 @@ public class ReservaionDAOIMPL implements ReservationDAO {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
-        }
+        }*/
     }
 }

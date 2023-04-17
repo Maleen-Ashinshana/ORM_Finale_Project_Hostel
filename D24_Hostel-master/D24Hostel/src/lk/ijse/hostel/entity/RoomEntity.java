@@ -1,5 +1,6 @@
 package lk.ijse.hostel.entity;
 
+import lk.ijse.hostel.dto.RoomDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,5 +33,6 @@ public class RoomEntity implements SuperEntity {
     }
 
     public RoomEntity(String room_type_id) {
+        this.room_type_id = room_type_id;
     }
 }

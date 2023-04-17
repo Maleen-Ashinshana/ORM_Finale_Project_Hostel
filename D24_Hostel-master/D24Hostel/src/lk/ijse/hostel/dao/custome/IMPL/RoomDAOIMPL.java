@@ -80,7 +80,23 @@ public class RoomDAOIMPL implements RoomDAO {
             return new RoomEntity(s,roomEntity.getType(),roomEntity.getKey_money(), roomEntity.getQty());
         }catch (Exception e){
             e.printStackTrace();
-            transaction.rollback();
+            /*transaction.rollback();*/
+            return null;
+        }
+    }
+
+    @Override
+    public RoomEntity findType(String type) throws ConstraintViolationException {
+        Session session=FactoryConfiguration.getInstance().getSession();
+        Transaction transaction=session.beginTransaction();
+        try {
+            RoomEntity roomEntity=session.find(RoomEntity.class,type);
+            transaction.commit();
+            return new RoomEntity(roomEntity.getRoom_type_id(),type,roomEntity.getKey_money(), roomEntity.getQty());
+           // return new RoomEntity(s,roomEntity.getType(),roomEntity.getKey_money(), roomEntity.getQty());
+        }catch (Exception e){
+            e.printStackTrace();
+            //transaction.rollback();
             return null;
         }
     }
@@ -125,6 +141,36 @@ public class RoomDAOIMPL implements RoomDAO {
 
         try {
             Query query= session.createQuery("SELECT id from RoomEntity ");
+            List<String> list=query.list();
+            System.out.println(list);
+            transaction.commit();
+            return(ArrayList<String>) list;
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+            return null;
+        }
+    }
+
+    @Override
+    public long count() {
+        Session session=FactoryConfiguration.getInstance().getSession();
+        Transaction transaction= session.beginTransaction();
+
+        /*try {
+            Query query=session.createQuery("select count (room_type_id) from RoomEntity ");
+        }*/
+        return 0;
+    }
+
+    @Override
+    public ArrayList<String> loadRoomsType() {
+        Session session=FactoryConfiguration.getInstance().getSession();
+        Transaction transaction= session.beginTransaction();
+        List<RoomEntity> roomEntities=new ArrayList<>();
+
+        try {
+            Query query= session.createQuery("SELECT type from RoomEntity ");
             List<String> list=query.list();
             System.out.println(list);
             transaction.commit();

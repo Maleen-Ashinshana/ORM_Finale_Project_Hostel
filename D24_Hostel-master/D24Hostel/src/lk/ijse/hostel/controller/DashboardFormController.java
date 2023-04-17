@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.hostel.dto.RoomDTO;
 import lk.ijse.hostel.service.ServiceFactory;
 import lk.ijse.hostel.service.ServiceTypes;
 import lk.ijse.hostel.service.custome.ReservationService;
@@ -40,19 +41,23 @@ public class DashboardFormController {
         loadRoomTypeId();
     }
 
+    private void  loadAllRooms(){
+        ObservableList<String> observableList=FXCollections.observableArrayList();
+        //ArrayList<String> allList=roomService.getAllRoom();
+    }
+
     private void loadRoomTypeId(){
-        try {
-            ObservableList<String> observableList= FXCollections.observableArrayList();
-            ArrayList<String> idList=reservationService.loadRoomTypeID();
+        ObservableList<String> observableList= FXCollections.observableArrayList();
+        ArrayList<String> idList=reservationService.loadRoomsType();
 
-            for (String id: idList) {
-                observableList.add(id);
+        for (String id: idList) {
+            observableList.add(id);
 
-            }
-            comType.setItems(observableList);
-        }catch (SQLException | ClassNotFoundException e){
-            throw new RuntimeException();
         }
+        comType.setItems(observableList);
+    }
+    private void fillRoomFile(RoomDTO roomDTO){
+        lblQty.setText(String.valueOf(roomDTO.getQty()));
     }
 
     public void btnDashBoard(ActionEvent actionEvent) throws IOException {
@@ -75,5 +80,13 @@ public class DashboardFormController {
     public void btnReservationOnACtion(ActionEvent actionEvent) throws IOException {
         subpage.getChildren().clear();
         Navigation.navigate(Routes.RESERVATION,subpage);
+    }
+
+    public void cmbTypeOnActoin(ActionEvent actionEvent) {
+        RoomDTO roomDTO=roomService.searchRoom(String.valueOf(comType.getValue()));
+        if (roomDTO!=null){
+            fillRoomFile(roomDTO);
+        }
+
     }
 }

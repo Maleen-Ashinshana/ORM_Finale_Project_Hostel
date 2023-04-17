@@ -11,4 +11,5 @@ public interface StudentDAO extends CrudDAO<StudentEntity,String> {
     long calcAllStudent();
 
     ArrayList<String> loadStudentIdS();
+    long count();
 }

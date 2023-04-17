@@ -7,6 +7,8 @@ import lk.ijse.hostel.dao.util.DAOFactory;
 import lk.ijse.hostel.dao.util.DaoTypes;
 import lk.ijse.hostel.dto.ReservationDTO;
 import lk.ijse.hostel.entity.ReservationEntity;
+import lk.ijse.hostel.entity.RoomEntity;
+import lk.ijse.hostel.entity.StudentEntity;
 import lk.ijse.hostel.service.custome.ReservationService;
 import lk.ijse.hostel.service.exception.DuplicateException;
 import lk.ijse.hostel.service.util.Convertor;
@@ -34,8 +36,12 @@ public class ReservationServiceIMPL implements ReservationService {
         System.out.println(reservationDTO+"");
         //return reservationDAO.save(convertor.toRe(reservationDTO));
       //return reservationDAO.save(new ReservationEntity(reservationDTO.getId(), reservationDTO.getDate(), reservationDTO.getStatus()));
-     return reservationDAO.save(convertor.fromReservation(reservationDTO));
+     //return reservationDAO.save(convertor.fromReservation(reservationDTO));
         //return reservationDAO.save(new ReservationEntity(reservationDTO.getId(),reservationDTO.getDate(),reservationDTO.getStatus(),reservationDTO.getStudentId(),reservationDTO.getRoomId()));
+
+    ReservationEntity entity=new ReservationEntity(reservationDTO.getId(),reservationDTO.getDate(),reservationDTO.getStatus(),new StudentEntity(reservationDTO.getStudent()),new RoomEntity(reservationDTO.getRoom()));
+    return reservationDAO.save(entity);
+
     }
 
     @Override
@@ -51,5 +57,10 @@ public class ReservationServiceIMPL implements ReservationService {
     @Override
     public List<ReservationDTO> getAll() {
         return reservationDAO.getAll().stream().map(reservationEntity -> convertor.toReservation(reservationEntity)).collect(Collectors.toList());
+    }
+
+    @Override
+    public ArrayList<String> loadRoomsType() {
+        return roomDAO.loadRoomsType();
     }
 }

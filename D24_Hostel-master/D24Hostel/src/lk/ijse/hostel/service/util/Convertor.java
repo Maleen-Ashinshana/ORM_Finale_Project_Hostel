@@ -31,10 +31,10 @@ public class Convertor {
         return new ReservationDTO(entity.getId(), entity.getDate(), entity.getStatus(),
                 new StudentDTO(entity.getStudentEntity().getStudentId()),new RoomDTO(entity.getRoom().getRoom_type_id()));
     }
-    public ReservationEntity fromReservation(ReservationDTO dto) {
+    /*public ReservationEntity fromReservation(ReservationDTO dto) {
         return new ReservationEntity(dto.getId(), dto.getDate(), dto.getStatus()
                 ,new StudentEntity(dto.getStudent().getStudentId())
                 ,new RoomEntity(dto.getRoom().getRoom_type_id())
         );
-    }
+    }*/
 }

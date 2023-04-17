@@ -41,6 +41,13 @@ public class RoomServiceimpl implements RoomService {
     }
 
     @Override
+    public RoomDTO findType(String type) throws NotFoundException {
+        Optional<RoomEntity> roomEntity= Optional.ofNullable(roomDAO.findType(type));
+        if (!roomEntity.isPresent())throw new NotFoundException("Room Not Found");
+        return convertor.froRoom(roomEntity.get());
+    }
+
+    @Override
     public boolean updateRoom(RoomDTO roomDTO) throws NotFoundException {
         return roomDAO.update(convertor.toRoom(roomDTO));
     }

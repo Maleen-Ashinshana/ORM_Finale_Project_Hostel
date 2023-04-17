@@ -53,6 +53,11 @@ public class UserDAOIMPL implements UserDAO {
     }
 
     @Override
+    public UserEntity findType(String type) throws ConstraintViolationException {
+        return null;
+    }
+
+    @Override
     public ArrayList<UserEntity> getAll()  {
         return null;
     }

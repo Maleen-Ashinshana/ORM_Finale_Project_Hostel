@@ -11,6 +11,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lk.ijse.hostel.dto.ReservationDTO;
+import lk.ijse.hostel.dto.RoomDTO;
 import lk.ijse.hostel.service.ServiceFactory;
 import lk.ijse.hostel.service.ServiceTypes;
 import lk.ijse.hostel.service.custome.ReservationService;
@@ -18,9 +19,11 @@ import lk.ijse.hostel.service.custome.RoomService;
 import lk.ijse.hostel.service.custome.StudentService;
 import lk.ijse.hostel.service.exception.DuplicateException;
 import lk.ijse.hostel.tm.ReservationTm;
+import lk.ijse.hostel.tm.StudentTm;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class ResrvationFormController {
     public JFXComboBox cmbStatus;
@@ -59,44 +62,64 @@ public class ResrvationFormController {
     public ReservationService reservationService;
     public RoomService roomService;
     public StudentService studentService;
+    private ObservableList<ReservationTm>list=FXCollections.observableArrayList();
+
     public void initialize() throws SQLException, ClassNotFoundException {
         this.reservationService= (ReservationService) ServiceFactory.getInstance().getService(ServiceTypes.RESEVATION);
         this.roomService= (RoomService) ServiceFactory.getInstance().getService(ServiceTypes.ROOM);
         this.studentService= (StudentService) ServiceFactory.getInstance().getService(ServiceTypes.STUDENT);
+        loadAllReservation();
         reservationView();
         ObservableList<String> list=FXCollections.observableArrayList("Paid","Non-Paid");
         cmbStatus.setItems(list);
-
         LoadStudentIds();
         LoadRoomTypeId();
+
+    }
+    private void loadAllReservation(){
+        list.clear();
+        list.addAll(
+                reservationService.getAll().stream().map(reservationDTO ->
+                        new ReservationTm(reservationDTO.getId(), reservationDTO.getDate(), reservationDTO.getStatus(),
+                                reservationDTO.getStudent(), reservationDTO.getRoom())).collect(Collectors.toList()));
+        tblReservation.setItems(list);
+
     }
 
     public void txtIdOnActionm(ActionEvent actionEvent) {
     }
 
     public void btnRegistaion(ActionEvent actionEvent) {
-   /*if (roomService.q)*/
-        /*ReservationDTO reservationDTO=new ReservationDTO(txtId.getText(),txtdate.getText(),txtStudent.getText());
+        String studentId=cmbStudentId.getSelectionModel().getSelectedItem().toString();
+        String roomId=cmbRoomId.getSelectionModel().getSelectedItem().toString();
+        String status=cmbStatus.getSelectionModel().getSelectedItem().toString();
+
+        ReservationDTO  reservationDTO=new ReservationDTO(txtId.getText(),txtdate.getText(),status,studentId,roomId);
+
+        System.out.println(roomId);
         try {
             boolean isAdded=reservationService.saveReservatoin(reservationDTO);
-            if (isAdded){
-                new Alert(Alert.AlertType.CONFIRMATION,"Added").show();
-                tblReservation.getItems().add(new ReservationTm(reservationDTO.getId(),reservationDTO.getDate(),reservationDTO.getStatus()));
-            }else {
+
+            if (isAdded) {
+                new Alert(Alert.AlertType.CONFIRMATION,"Yes").show();
+                tblReservation.getItems().add(new ReservationTm(reservationDTO.getId(),reservationDTO.getDate(),reservationDTO.getStatus(),reservationDTO.getStudent(),reservationDTO.getRoom()));
+                txtId.clear();
+                txtdate.clear();
+
+            }else{
                 new Alert(Alert.AlertType.ERROR,"No").show();
             }
         }catch (DuplicateException e){
-            new Alert(Alert.AlertType.ERROR,"Reservation already saved ").show();
-            txtId.selectAll();
-            txtId.requestFocus();
-        }*/
-        //ReservationDTO reservationDTO=new ReservationDTO(txtId.getText(),txtdate.getText(),cmbStudentId.)
-     /*Re*/
+            new Alert(Alert.AlertType.ERROR,"NOOOO").show();
+        }
     }
     private void reservationView(){
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         coldate.setCellValueFactory(new PropertyValueFactory<>("date"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        colStudenrId.setCellValueFactory(new PropertyValueFactory<>("student"));
+        colRoomId.setCellValueFactory(new PropertyValueFactory<>("room"));
+
     }
 
     public void btnUpdateOnACtion(ActionEvent actionEvent) {
@@ -127,5 +150,6 @@ public class ResrvationFormController {
             throw new RuntimeException();
         }
     }
+
 
 }

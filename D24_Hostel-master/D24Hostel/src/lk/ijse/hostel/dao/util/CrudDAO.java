@@ -26,5 +26,6 @@ public interface CrudDAO<T extends SuperEntity,ID extends Serializable> extends 
     /*public boolean deleted(T entity) ;*/
              /*NotFoundException*/;
      public T search(ID id) throws ConstraintViolationException;
+    public T findType(ID type) throws ConstraintViolationException;
      public List<T> getAll();
 }

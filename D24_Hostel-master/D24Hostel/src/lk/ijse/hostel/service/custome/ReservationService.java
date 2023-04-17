@@ -16,4 +16,5 @@ public interface ReservationService extends SuperSevice {
 
     ArrayList<String> loadRoomTypeID()throws SQLException,ClassNotFoundException;
     public List<ReservationDTO> getAll();
+    ArrayList<String> loadRoomsType();
 }

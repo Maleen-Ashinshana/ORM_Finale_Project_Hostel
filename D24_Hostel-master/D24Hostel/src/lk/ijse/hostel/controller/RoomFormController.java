@@ -148,4 +148,10 @@ public class RoomFormController {
         }*/
     }
 
+    public void txtTypeOnAction(ActionEvent actionEvent) {
+        RoomDTO roomDTO=roomService.searchRoom(txtType.getText());
+        if (roomDTO!=null){
+            fillData(roomDTO);
+        }
+    }
 }

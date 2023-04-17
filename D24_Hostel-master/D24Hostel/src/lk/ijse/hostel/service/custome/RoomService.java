@@ -13,6 +13,7 @@ import java.util.List;
 public interface RoomService extends SuperSevice {
     boolean saveRoom(RoomDTO roomDTO) throws DuplicateException;
     RoomDTO searchRoom(String id) throws NotFoundException;
+    RoomDTO findType(String type) throws NotFoundException;
     boolean updateRoom(RoomDTO roomDTO) throws NotFoundException;
     boolean deleteRoom(String id) throws SQLException,ClassNotFoundException;
     List<RoomDTO> getAllRoom();
