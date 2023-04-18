@@ -13,6 +13,7 @@ public interface RoomDAO extends CrudDAO< RoomEntity,String> {
     long count();
     ArrayList<String> loadRoomsType();
 
+
     //public T search(ID id) throws ConstraintViolationException;
 
 }

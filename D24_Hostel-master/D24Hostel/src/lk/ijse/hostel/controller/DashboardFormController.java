@@ -46,9 +46,9 @@ public class DashboardFormController {
         //ArrayList<String> allList=roomService.getAllRoom();
     }
 
-    private void loadRoomTypeId(){
+    private void loadRoomTypeId() throws SQLException, ClassNotFoundException {
         ObservableList<String> observableList= FXCollections.observableArrayList();
-        ArrayList<String> idList=reservationService.loadRoomsType();
+        ArrayList<String> idList=reservationService.loadRoomTypeID();
 
         for (String id: idList) {
             observableList.add(id);
@@ -58,6 +58,16 @@ public class DashboardFormController {
     }
     private void fillRoomFile(RoomDTO roomDTO){
         lblQty.setText(String.valueOf(roomDTO.getQty()));
+    }
+    public void cmbTypeOnActoin(ActionEvent actionEvent) {
+        RoomDTO roomDTO=roomService.findType(String.valueOf(comType.getValue()));
+        if (roomDTO!=null){
+            fillRoomFile(roomDTO);
+        }
+    }
+
+    private void loadType(){
+        ObservableList<String> list=FXCollections.observableArrayList();
     }
 
     public void btnDashBoard(ActionEvent actionEvent) throws IOException {
@@ -82,11 +92,8 @@ public class DashboardFormController {
         Navigation.navigate(Routes.RESERVATION,subpage);
     }
 
-    public void cmbTypeOnActoin(ActionEvent actionEvent) {
-        RoomDTO roomDTO=roomService.searchRoom(String.valueOf(comType.getValue()));
-        if (roomDTO!=null){
-            fillRoomFile(roomDTO);
-        }
 
-    }
+
+
+
 }

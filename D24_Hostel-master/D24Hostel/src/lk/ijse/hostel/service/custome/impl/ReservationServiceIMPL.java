@@ -60,7 +60,7 @@ public class ReservationServiceIMPL implements ReservationService {
     public List<ReservationDTO> getAll() {
         List<ReservationDTO> list=new ArrayList<>();
         for (ReservationEntity entity : reservationDAO.getAll()) {
-            list.add(new ReservationDTO(entity.getId(), entity.getDate(), entity.getStatus(), entity.getStudentEntity().getStudentId(),(entity.getRoom().getRoom_type_id())));
+            list.add(new ReservationDTO(entity.getId(), entity.getDate(), entity.getStatus(), entity.getStudentEntity().getStudentId(),entity.getRoom().getRoom_type_id()));
         }
         return list;
         //return reservationDAO.getAll().stream().map(reservationEntity -> convertor.fromReservation(reservationEntity)).collect(Collectors.toList());

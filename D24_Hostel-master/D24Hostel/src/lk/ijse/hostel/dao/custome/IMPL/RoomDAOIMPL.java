@@ -92,7 +92,7 @@ public class RoomDAOIMPL implements RoomDAO {
         try {
             RoomEntity roomEntity=session.find(RoomEntity.class,type);
             transaction.commit();
-            return new RoomEntity(roomEntity.getRoom_type_id(),type,roomEntity.getKey_money(), roomEntity.getQty());
+            return new RoomEntity(type,roomEntity.getRoom_type_id(),roomEntity.getKey_money(), roomEntity.getQty());
            // return new RoomEntity(s,roomEntity.getType(),roomEntity.getKey_money(), roomEntity.getQty());
         }catch (Exception e){
             e.printStackTrace();

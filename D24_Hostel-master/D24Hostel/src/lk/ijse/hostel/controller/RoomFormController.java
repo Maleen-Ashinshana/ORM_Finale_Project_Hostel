@@ -41,9 +41,12 @@ public class RoomFormController {
     private final ObservableList<RoomDTO>dtos=FXCollections.observableArrayList();
     private ObservableList<RoomTm> roomTms= FXCollections.observableArrayList();
     public void initialize() throws SQLException, ClassNotFoundException {
-        RoomtView();
         this.roomService= (RoomService) ServiceFactory.getInstance().getService(ServiceTypes.ROOM);
+        RoomtView();
         loadRooms();
+        txtTypeOnAction(new ActionEvent());
+
+
     }
     private void RoomtView(){
         colId.setCellValueFactory(new PropertyValueFactory<>("room_type_id"));
@@ -59,6 +62,14 @@ public class RoomFormController {
             fillData(roomDTO);
         }
     }
+    public void txtTypeOnAction(ActionEvent actionEvent) {
+        /*RoomDTO roomDTO=roomService.searchRoom(txtType.getText());
+        if (roomDTO!=null){
+            fillData(roomDTO);
+        }*/
+    }
+
+
     private void fillData(RoomDTO roomDTO){
         txtId.setText(roomDTO.getRoom_type_id());
         txtType.setText(roomDTO.getType());
@@ -138,20 +149,7 @@ public class RoomFormController {
                         roomDTO.getRoom_type_id(),roomDTO.getType(),roomDTO.getKey_money(), roomDTO.getQty()
                 )).collect(Collectors.toList()));
         tblRooms.setItems(roomTms);
-        /*List<RoomDTO> roomDTOS=null;
-        roomDTOS=roomService.getAllRoom(session);
-        for (RoomDTO roomDTO:roomDTOS) {
-            RoomDTO roomDTO1=new RoomDTO(roomDTO.getRoom_type_id(),
-                    roomDTO.getType(),roomDTO.getKey_money(), roomDTO.getQty());
-                   dtos.add(roomDTO1);
-                   tblRooms.setItems(dtos);
-        }*/
     }
 
-    public void txtTypeOnAction(ActionEvent actionEvent) {
-        RoomDTO roomDTO=roomService.searchRoom(txtType.getText());
-        if (roomDTO!=null){
-            fillData(roomDTO);
-        }
-    }
+
 }

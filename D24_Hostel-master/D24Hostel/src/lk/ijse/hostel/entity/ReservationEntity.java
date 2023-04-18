@@ -8,9 +8,6 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.sql.Date;
 @Entity
-
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "reservation")
 @ToString
 public class ReservationEntity implements SuperEntity {
@@ -25,14 +22,21 @@ public class ReservationEntity implements SuperEntity {
     @JoinColumn(name = "room_type_id", referencedColumnName = "room_type_id")
     private RoomEntity room;
 
+    public ReservationEntity() {
+    }
+
     public ReservationEntity(String id, String date, String status) {
         this.id = id;
         Date = date;
         this.status = status;
     }
 
-    public ReservationEntity(String id, String date, String status, StudentEntity studentEntity, RoomEntity roomEntity, String status1) {
-
+    public ReservationEntity(String id, String date, String status, StudentEntity studentEntity, RoomEntity room) {
+        this.id = id;
+        Date = date;
+        this.status = status;
+        this.studentEntity = studentEntity;
+        this.room = room;
     }
 
     public String getId() {

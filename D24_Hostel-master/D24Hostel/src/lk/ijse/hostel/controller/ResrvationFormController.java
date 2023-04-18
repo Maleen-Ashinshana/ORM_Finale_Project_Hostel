@@ -87,7 +87,6 @@ public class ResrvationFormController {
         }
 
     }
-
     public void txtIdOnActionm(ActionEvent actionEvent) {
     }
 
@@ -114,12 +113,6 @@ public class ResrvationFormController {
         }
     }
     private void reservationView(){
-        /*colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        coldate.setCellValueFactory(new PropertyValueFactory<>("date"));
-        colRoomId.setCellValueFactory(new PropertyValueFactory<>("room"));
-        colStudenrId.setCellValueFactory(new PropertyValueFactory<>("student"));
-        colStatus.setCellValueFactory(new PropertyValueFactory<>(" status"));*/
-
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         coldate.setCellValueFactory(new PropertyValueFactory<>("date"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
@@ -157,6 +150,7 @@ public class ResrvationFormController {
             throw new RuntimeException();
         }
     }
-
-
 }
+
+
+

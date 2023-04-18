@@ -22,6 +22,7 @@ public class Convertor {
 
     }
     public RoomDTO froRoom(RoomEntity roomEntity){
+        System.out.println(roomEntity+"******");
         return new RoomDTO(roomEntity.getRoom_type_id(), roomEntity.getType(),roomEntity.getKey_money(), roomEntity.getQty());
     }
     public RoomEntity toRoom(RoomDTO roomDTO){
@@ -37,18 +38,4 @@ public class Convertor {
         return new ReservationEntity(dto.getId(), dto.getDate(), dto.getStatus(),
                 new StudentEntity(dto.getStudent()),new RoomEntity(dto.getRoom()));
     }
-
-
-
-
-/*    public ReservationDTO toReservation(ReservationEntity entity) {
-        return new ReservationDTO(entity.getId(), entity.getDate(), entity.getStatus(),
-                new StudentDTO(entity.getStudentEntity().getStudentId()),new RoomDTO(entity.getRoom().getRoom_type_id()));
-    }*/
-    /*public ReservationEntity fromReservation(ReservationDTO dto) {
-        return new ReservationEntity(dto.getId(), dto.getDate(), dto.getStatus()
-                ,new StudentEntity(dto.getStudent().getStudentId())
-                ,new RoomEntity(dto.getRoom().getRoom_type_id())
-        );
-    }*/
 }
