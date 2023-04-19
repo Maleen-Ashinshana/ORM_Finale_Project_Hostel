@@ -10,6 +10,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Paint;
 import lk.ijse.hostel.dto.RoomDTO;
 import lk.ijse.hostel.dto.StudentDTO;
 import lk.ijse.hostel.service.ServiceFactory;
@@ -24,6 +25,7 @@ import org.hibernate.Session;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class RoomFormController {
@@ -37,6 +39,10 @@ public class RoomFormController {
     public TableColumn colType;
     public TableColumn colKeyMoney;
     public TableColumn colQty;
+    private Pattern idPattern;
+    private Pattern typePattern;
+    private Pattern keyMoneyPattern;
+    private Pattern qrtPattern;
     public RoomService roomService;
     private final ObservableList<RoomDTO>dtos=FXCollections.observableArrayList();
     private ObservableList<RoomTm> roomTms= FXCollections.observableArrayList();
@@ -44,9 +50,15 @@ public class RoomFormController {
         this.roomService= (RoomService) ServiceFactory.getInstance().getService(ServiceTypes.ROOM);
         RoomtView();
         loadRooms();
-        txtTypeOnAction(new ActionEvent());
+        pattern();
 
 
+    }
+    public void pattern(){
+        idPattern=Pattern.compile("[R][0-9]{1,}");
+        typePattern=Pattern.compile("^[A-Za-z]{1,}$");
+        keyMoneyPattern=Pattern.compile("[0-9]{1,}");
+        qrtPattern=Pattern.compile("[0-9]{1,}");
     }
     private void RoomtView(){
         colId.setCellValueFactory(new PropertyValueFactory<>("room_type_id"));
@@ -78,6 +90,33 @@ public class RoomFormController {
     }
 
     public void btnAddOnAction(ActionEvent actionEvent) {
+        boolean isIdMatched=idPattern.matcher(txtId.getText()).matches();
+        boolean isTypeMatched=idPattern.matcher(txtType.getText()).matches();
+        boolean isKeyMatched=idPattern.matcher(txtxKeyMoney.getText()).matches();
+        boolean isMatched=idPattern.matcher(txtId.getText()).matches();
+
+        if (isIdMatched){
+            if (isTypeMatched){
+                if (isKeyMatched){
+                    if (isMatched){
+                        System.out.println("start");
+                    }else{
+                        txtQty.setFocusColor(Paint.valueOf("Red"));
+                        txtQty.requestFocus();
+                    }
+                }else {
+                    txtxKeyMoney.setFocusColor(Paint.valueOf("Red"));
+                    txtxKeyMoney.requestFocus();
+                }
+            }else {
+                txtType.setFocusColor(Paint.valueOf("Red"));
+                txtType.requestFocus();
+            }
+        }else {
+            txtId.setFocusColor(Paint.valueOf("Red"));
+            txtId.requestFocus();
+        }
+
         RoomDTO roomDTO=new RoomDTO(txtId.getText(),txtType.getText(),txtxKeyMoney.getText(),Integer.parseInt(txtQty.getText()));
         try {
             boolean isAdded=roomService.saveRoom(roomDTO);
