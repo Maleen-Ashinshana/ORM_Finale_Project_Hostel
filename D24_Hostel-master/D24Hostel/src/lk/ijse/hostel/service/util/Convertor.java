@@ -7,6 +7,7 @@ import lk.ijse.hostel.dto.UserDTO;
 import lk.ijse.hostel.entity.ReservationEntity;
 import lk.ijse.hostel.entity.RoomEntity;
 import lk.ijse.hostel.entity.StudentEntity;
+import lk.ijse.hostel.entity.UserEntity;
 
 import java.sql.Date;
 
@@ -37,5 +38,11 @@ public class Convertor {
     public ReservationEntity toReservation(ReservationDTO dto){
         return new ReservationEntity(dto.getId(), dto.getDate(), dto.getStatus(),
                 new StudentEntity(dto.getStudent()),new RoomEntity(dto.getRoom()));
+    }
+    public UserDTO fromUser(UserEntity userEntity){
+        return new UserDTO(userEntity.getId(), userEntity.getName(), userEntity.getPassword());
+    }
+    public UserEntity toUser(UserDTO userDTO){
+        return new UserEntity(userDTO.getId(), userDTO.getName(), userDTO.getPassword());
     }
 }

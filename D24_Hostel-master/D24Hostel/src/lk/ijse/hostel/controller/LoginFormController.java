@@ -73,8 +73,34 @@ public UserService userService;
         passwordPatten=Pattern.compile("^[a-zA-Z0-9_]{8,}$");
         this.userService= (UserService) ServiceFactory.getInstance().getService(ServiceTypes.USER);
     }
-/*    public void btnLoginOnAction(ActionEvent actionEvent) throws IOException {
-        Session session= FactoryConfiguration.getInstance().getSession();
+    public void btnLoginOnAction(ActionEvent actionEvent) throws IOException {
+
+
+
+        /*boolean login=false;
+
+        try {
+            login=userService.login(new UserDTO(txtUserName.getText(),txtPassword.getText()));
+            if (login){
+                new Alert(Alert.AlertType.CONFIRMATION,"Loging").show();
+                Stage widow= (Stage) pane.getScene().getWindow();
+                widow.close();
+                URL resource = getClass().getResource("/lk/ijse/hostel/view/dashboardForm.fxml");
+                Parent load = FXMLLoader.load(resource);
+                Scene scene = new Scene(load);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+//                Stage widow= (Stage) pane.getScene().getWindow();
+//                widow.close();
+                stage.show();
+
+            }else {
+                new Alert(Alert.AlertType.ERROR,"No").show();
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }*/
+        /*Session session= FactoryConfiguration.getInstance().getSession();
         Transaction transaction= session.beginTransaction();
         UserEntity userEntity=new UserEntity();
         String hql="SELECT U.name FROM UserEntity U";
@@ -83,7 +109,7 @@ public UserService userService;
         System.out.println(re);
 
 
-*//*        boolean uniq=true;
+        boolean uniq=true;
         String pass="password";
 
         if (uniq){
@@ -116,7 +142,7 @@ public UserService userService;
         }else{
             txtUserName.setFocusColor(Paint.valueOf("Red"));
             txtUserName.requestFocus();
-        }*//*
+        }*/
         Stage widow= (Stage) pane.getScene().getWindow();
         widow.close();
         URL resource = getClass().getResource("/lk/ijse/hostel/view/dashboardForm.fxml");
@@ -130,7 +156,7 @@ public UserService userService;
 
 
 
-    }*/
+    }
 
     public void btnCreateOnAction(ActionEvent actionEvent) throws IOException {
       /*pane.getChildren().clear();
@@ -191,14 +217,40 @@ public UserService userService;
     }
 
     public void btnSingInOnAction(ActionEvent actionEvent) throws IOException {
-        Stage widow= (Stage) pane.getScene().getWindow();
+        /*UserDTO userDTO=userService*/
+
+        boolean login=false;
+
+        try {
+            login=userService.login(new UserDTO(txtUserName.getText(),txtPassword.getText()));
+            if (login){
+                new Alert(Alert.AlertType.CONFIRMATION,"Loging").show();
+                Stage widow= (Stage) pane.getScene().getWindow();
+                widow.close();
+                URL resource = getClass().getResource("/lk/ijse/hostel/view/dashboardForm.fxml");
+                Parent load = FXMLLoader.load(resource);
+                Scene scene = new Scene(load);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+//                Stage widow= (Stage) pane.getScene().getWindow();
+//                widow.close();
+                stage.show();
+
+            }else {
+                new Alert(Alert.AlertType.ERROR,"No").show();
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+/*        Stage widow= (Stage) pane.getScene().getWindow();
         widow.close();
         URL resource = getClass().getResource("/lk/ijse/hostel/view/dashboardForm.fxml");
         Parent load = FXMLLoader.load(resource);
         Scene scene = new Scene(load);
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.show();
+        stage.show();*/
 
 
     }
