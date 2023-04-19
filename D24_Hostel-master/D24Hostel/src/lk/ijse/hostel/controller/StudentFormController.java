@@ -9,6 +9,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Paint;
 import lk.ijse.hostel.dto.StudentDTO;
 import lk.ijse.hostel.service.ServiceFactory;
 import lk.ijse.hostel.service.ServiceTypes;
@@ -98,7 +99,7 @@ public class StudentFormController {
         NamePattern=Pattern.compile("^[A-Za-z0-9]{4,}$");
         addressPattern=Pattern.compile("^[A-Za-z0-9]{1,}$");
         contPattern=Pattern.compile("^(076|074|073|075|078|072|091)([0-9]{7})$");
-        dobPattern=Pattern.compile("[0-9]{1,}");
+        dobPattern=Pattern.compile("[0-9][-]{1,}");
         genderPattern=Pattern.compile("^[A-Za-z]{1,}$");
     }
 
@@ -122,22 +123,40 @@ public class StudentFormController {
         boolean isNameMatched = NamePattern.matcher(txtName.getText()).matches();
         boolean isAddressMatched = addressPattern.matcher(txtAddress.getText()).matches();
         boolean isContMatched = contPattern.matcher(txtxTel.getText()).matches();
-        //boolean isDOBdMatched=dobPattern.matcher(txtDOB.getText()).matches();
+        boolean isDOBdMatched=dobPattern.matcher(txtDOB.getText()).matches();
         boolean isGenderMatched = genderPattern.matcher(txtGender.getText()).matches();
 
-/*        if (isIdMatched){
+        if (isIdMatched){
             if (isNameMatched){
                 if (isAddressMatched){
                     if (isContMatched){
-                        *//*if (isDOBdMatched){*//*
+                        if (isDOBdMatched){
                             if (isGenderMatched){
-
+                                System.out.println("Start");
+                            }else {
+                                txtGender.setFocusColor(Paint.valueOf("Red"));
+                                txtGender.requestFocus();
                             }
+                        }else {
+                            txtDOB.setFocusColor(Paint.valueOf("Red"));
+                            txtDOB.requestFocus();
                         }
+                    }else {
+                        txtxTel.setFocusColor(Paint.valueOf("Red"));
+                        txtxTel.requestFocus();
                     }
+                }else {
+                    txtAddress.setFocusColor(Paint.valueOf("Red"));
+                    txtAddress.requestFocus();
                 }
+            }else {
+                txtName.setFocusColor(Paint.valueOf("Red"));
+                txtName.requestFocus();
             }
-        }*/
+        }else {
+            txtId.setFocusColor(Paint.valueOf("Red"));
+            txtId.requestFocus();
+        }
         StudentDTO studentDTO=new StudentDTO(txtId.getText(),txtName.getText(),txtAddress.getText()
                 ,Integer.parseInt(txtxTel.getText()),txtDOB.getText(),txtGender.getText());
         System.out.println(studentDTO);
