@@ -8,7 +8,7 @@ import lk.ijse.hostel.entity.StudentEntity;
 import java.util.ArrayList;
 
 public interface RoomDAO extends CrudDAO< RoomEntity,String> {
-    long calcAllRooms();
+    long calcAvailableRooms();
     ArrayList<String> loadRoomsIds();
     long count();
     ArrayList<String> loadRoomsType();

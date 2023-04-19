@@ -39,6 +39,7 @@ public class DashboardFormController {
         this.reservationService= (ReservationService) ServiceFactory.getInstance().getService(ServiceTypes.RESEVATION);
         this.roomService= (RoomService) ServiceFactory.getInstance().getService(ServiceTypes.ROOM);
         loadRoomTypeId();
+        setAvailableRooms();
     }
 
     private void  loadAllRooms(){
@@ -57,6 +58,7 @@ public class DashboardFormController {
         comType.setItems(observableList);
     }
     private void fillRoomFile(RoomDTO roomDTO){
+
         lblQty.setText(String.valueOf(roomDTO.getQty()));
     }
     public void cmbTypeOnActoin(ActionEvent actionEvent) {
@@ -65,8 +67,15 @@ public class DashboardFormController {
             fillRoomFile(roomDTO);
         }
     }
+    private void setAvailableRooms(){
+        Long aLong=roomService.calcAvailableRooms();
+        System.out.println(aLong+"***");
+        lblCurrentRooms.setText(String.valueOf(aLong));
+        //lblCurrentRooms.setText(String.valueOf();
+    }
 
     private void loadType(){
+
         ObservableList<String> list=FXCollections.observableArrayList();
     }
 

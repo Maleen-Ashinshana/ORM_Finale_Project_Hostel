@@ -116,12 +116,12 @@ public class RoomDAOIMPL implements RoomDAO {
     }
 
     @Override
-    public long calcAllRooms() {
+    public long calcAvailableRooms() {
         Session session=FactoryConfiguration.getInstance().getSession();
         Transaction transaction= session.beginTransaction();
 
         try {
-            Long aLong=(Long) session.createQuery("SELECT COUNT (*) FROM RoomEntity ").getSingleResult();
+            Long aLong=(Long) session.createQuery("select sum(qty) from RoomEntity ").getSingleResult();
             System.out.println(aLong);
             transaction.commit();
             return aLong;

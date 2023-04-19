@@ -1,21 +1,16 @@
 package lk.ijse.hostel.service.custome.impl;
 
 import lk.ijse.hostel.dao.custome.RoomDAO;
-import lk.ijse.hostel.dao.custome.StudentDAO;
 import lk.ijse.hostel.dao.util.DAOFactory;
 import lk.ijse.hostel.dao.util.DaoTypes;
 import lk.ijse.hostel.dto.RoomDTO;
-import lk.ijse.hostel.dto.StudentDTO;
 import lk.ijse.hostel.entity.RoomEntity;
-import lk.ijse.hostel.entity.StudentEntity;
 import lk.ijse.hostel.service.custome.RoomService;
 import lk.ijse.hostel.service.exception.DuplicateException;
 import lk.ijse.hostel.service.exception.NotFoundException;
 import lk.ijse.hostel.service.util.Convertor;
-import org.hibernate.Session;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -63,7 +58,13 @@ public class RoomServiceimpl implements RoomService {
     }
 
     @Override
+    public long calcAvailableRooms() {
+        return roomDAO.calcAvailableRooms();
+    }
+
+    @Override
     public boolean qty(String id) {
+
         return roomDAO.search(id).getQty()>0;
     }
 }

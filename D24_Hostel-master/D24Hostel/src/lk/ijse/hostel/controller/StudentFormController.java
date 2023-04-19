@@ -130,17 +130,17 @@ public class StudentFormController {
             if (isNameMatched){
                 if (isAddressMatched){
                     if (isContMatched){
-                        if (isDOBdMatched){
+                        //if (isDOBdMatched){
                             if (isGenderMatched){
                                 System.out.println("Start");
                             }else {
                                 txtGender.setFocusColor(Paint.valueOf("Red"));
                                 txtGender.requestFocus();
                             }
-                        }else {
+                        /*}else {
                             txtDOB.setFocusColor(Paint.valueOf("Red"));
                             txtDOB.requestFocus();
-                        }
+                        }*/
                     }else {
                         txtxTel.setFocusColor(Paint.valueOf("Red"));
                         txtxTel.requestFocus();
