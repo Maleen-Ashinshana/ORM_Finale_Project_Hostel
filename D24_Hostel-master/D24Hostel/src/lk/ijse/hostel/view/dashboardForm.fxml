@@ -73,27 +73,37 @@
                   <Font name="System Bold" size="28.0" />
                </font>
             </Label>
-            <JFXComboBox fx:id="comType" layoutX="428.0" layoutY="298.0" onAction="#cmbTypeOnActoin" prefHeight="50.0" prefWidth="179.0" promptText="type" />
-            <Label fx:id="lblCurrentRooms" layoutX="37.0" layoutY="302.0" prefHeight="50.0" prefWidth="150.0" textFill="#d60edd">
+            <JFXComboBox fx:id="comType" layoutX="428.0" layoutY="278.0" onAction="#cmbTypeOnActoin" prefHeight="50.0" prefWidth="179.0" promptText="type" />
+            <Label fx:id="lblCurrentRooms" layoutX="47.0" layoutY="269.0" prefHeight="75.0" prefWidth="150.0" textFill="#7a0b80">
                <font>
-                  <Font name="System Bold" size="28.0" />
+                  <Font size="33.0" />
                </font>
             </Label>
-            <Label fx:id="lblQty" layoutX="771.0" layoutY="287.0" prefHeight="50.0" prefWidth="150.0" textFill="#d60edd">
+            <Label fx:id="lblQty" layoutX="771.0" layoutY="256.0" prefHeight="75.0" prefWidth="150.0" textFill="#730d79">
                <font>
-                  <Font name="System Bold" size="28.0" />
+                  <Font name="System Bold" size="33.0" />
                </font>
             </Label>
-            <TableView fx:id="tblRemain" layoutX="139.0" layoutY="526.0" prefHeight="291.0" prefWidth="712.0">
+            <TableView fx:id="tblRemain" layoutX="139.0" layoutY="566.0" prefHeight="291.0" prefWidth="712.0">
               <columns>
                 <TableColumn fx:id="colId" prefWidth="207.0" text="Student Id" />
                 <TableColumn fx:id="colname" prefWidth="250.0" text="Student Name" />
                   <TableColumn fx:id="colKyeMoney" prefWidth="254.0" text="KeyMoney" />
               </columns>
             </TableView>
-            <Label layoutX="301.0" layoutY="481.0" text="Remaing Key Money Student">
+            <Label layoutX="301.0" layoutY="521.0" text="Remaing Key Money Student">
                <font>
                   <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label layoutX="29.0" layoutY="389.0" text="All Students:">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblAllStudent" layoutX="211.0" layoutY="372.0" prefHeight="75.0" prefWidth="150.0" textFill="#7a0b80">
+               <font>
+                  <Font size="33.0" />
                </font>
             </Label>
          </children>

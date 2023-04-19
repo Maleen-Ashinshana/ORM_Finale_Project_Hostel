@@ -2,8 +2,10 @@ package lk.ijse.hostel.service.custome;
 
 import lk.ijse.hostel.dto.ReservationDTO;
 import lk.ijse.hostel.dto.RoomDTO;
+import lk.ijse.hostel.dto.StudentDTO;
 import lk.ijse.hostel.service.SuperSevice;
 import lk.ijse.hostel.service.exception.DuplicateException;
+import lk.ijse.hostel.service.exception.NotFoundException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,4 +19,6 @@ public interface ReservationService extends SuperSevice {
     ArrayList<String> loadRoomTypeID()throws SQLException,ClassNotFoundException;
     public List<ReservationDTO> getAll();
     ArrayList<String> loadRoomsType();
+    ReservationDTO searchReservation(String id) throws NotFoundException;
+    boolean updateReservation(ReservationDTO reservationDTO) throws NotFoundException;
 }

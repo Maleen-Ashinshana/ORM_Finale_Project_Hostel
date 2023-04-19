@@ -14,6 +14,7 @@ import lk.ijse.hostel.service.ServiceFactory;
 import lk.ijse.hostel.service.ServiceTypes;
 import lk.ijse.hostel.service.custome.ReservationService;
 import lk.ijse.hostel.service.custome.RoomService;
+import lk.ijse.hostel.service.custome.StudentService;
 import lk.ijse.hostel.util.Navigation;
 import lk.ijse.hostel.util.Routes;
 
@@ -34,12 +35,16 @@ public class DashboardFormController {
     public AnchorPane mainPane;
     public ReservationService reservationService;
     public RoomService roomService;
+    public StudentService studentService;
+    public Label lblAllStudent;
 
     public void initialize() throws SQLException, ClassNotFoundException {
         this.reservationService= (ReservationService) ServiceFactory.getInstance().getService(ServiceTypes.RESEVATION);
         this.roomService= (RoomService) ServiceFactory.getInstance().getService(ServiceTypes.ROOM);
+        this.studentService= (StudentService) ServiceFactory.getInstance().getService(ServiceTypes.STUDENT);
         loadRoomTypeId();
         setAvailableRooms();
+        setStudents();
     }
 
     private void  loadAllRooms(){
@@ -72,6 +77,11 @@ public class DashboardFormController {
         System.out.println(aLong+"***");
         lblCurrentRooms.setText(String.valueOf(aLong));
         //lblCurrentRooms.setText(String.valueOf();
+    }
+    private void setStudents(){
+        Long aLong=studentService.calcAllStudent();
+        System.out.println(aLong);
+        lblAllStudent.setText(String.valueOf(aLong));
     }
 
     private void loadType(){

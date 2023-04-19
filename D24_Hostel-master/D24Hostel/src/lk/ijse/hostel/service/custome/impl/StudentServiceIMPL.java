@@ -58,4 +58,9 @@ public class StudentServiceIMPL implements StudentService {
         //return studentDAO.getAll().stream().map(entity -> convertor.fromStudent(entity)).collect(Collectors.toList());
 
     }
+
+    @Override
+    public long calcAllStudent() {
+        return studentDAO.calcAllStudent();
+    }
 }

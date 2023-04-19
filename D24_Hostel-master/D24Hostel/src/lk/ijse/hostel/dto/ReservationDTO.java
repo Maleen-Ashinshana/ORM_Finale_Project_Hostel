@@ -9,7 +9,7 @@ import java.sql.Date;
 
 
 
-
+@ToString
 public class ReservationDTO {
     private String id;
     private String date;
@@ -20,6 +20,12 @@ public class ReservationDTO {
     public ReservationDTO() {
     }
 
+    public ReservationDTO(String id, String date, String status) {
+        this.id = id;
+        this.date = date;
+        this.status = status;
+    }
+
     public ReservationDTO(String id, String date, String status, String student, String room) {
         this.id = id;
         this.date = date;
@@ -27,6 +33,9 @@ public class ReservationDTO {
         this.student = student;
         this.room = room;
     }
+
+
+
 
     public String getId() {
         return id;

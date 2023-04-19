@@ -19,6 +19,7 @@ public class ReservaionDAOIMPL implements ReservationDAO {
     private RoomDAO roomDAO;
 
     public ReservaionDAOIMPL() {
+
         roomDAO= (RoomDAO) DAOFactory.getInstance().getDAO(DaoTypes.ROOM);
     }
 
@@ -95,7 +96,7 @@ public class ReservaionDAOIMPL implements ReservationDAO {
         try {
             ReservationEntity entity=session.find(ReservationEntity.class,s);
             transaction.commit();
-            return new ReservationEntity(s, entity.getDate(), entity.getStatus());
+            return new ReservationEntity(s, entity.getDate(), entity.getStatus(),new StudentEntity(entity.getStudentEntity().getStudentId()),new RoomEntity(entity.getRoom().getRoom_type_id()));
         }catch (Exception e){
             e.printStackTrace();
             transaction.rollback();

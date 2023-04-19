@@ -12,12 +12,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lk.ijse.hostel.dto.ReservationDTO;
 import lk.ijse.hostel.dto.RoomDTO;
+import lk.ijse.hostel.dto.StudentDTO;
 import lk.ijse.hostel.service.ServiceFactory;
 import lk.ijse.hostel.service.ServiceTypes;
 import lk.ijse.hostel.service.custome.ReservationService;
 import lk.ijse.hostel.service.custome.RoomService;
 import lk.ijse.hostel.service.custome.StudentService;
 import lk.ijse.hostel.service.exception.DuplicateException;
+import lk.ijse.hostel.service.exception.NotFoundException;
 import lk.ijse.hostel.tm.ReservationTm;
 import lk.ijse.hostel.tm.StudentTm;
 
@@ -88,6 +90,24 @@ public class ResrvationFormController {
 
     }
     public void txtIdOnActionm(ActionEvent actionEvent) {
+        ReservationDTO reservationDTO=reservationService.searchReservation(txtId.getText());
+        if (reservationDTO!=null){
+            fillData(reservationDTO);
+        }
+
+    }
+    private void fillData(ReservationDTO reservationDTO){
+        txtId.setText(reservationDTO.getId());
+        txtdate.setText(reservationDTO.getDate());
+        cmbStatus.getSelectionModel().select(reservationDTO.getStatus());
+        cmbStudentId.getSelectionModel().select(reservationDTO.getStudent());
+        cmbRoomId.getSelectionModel().select(reservationDTO.getRoom());
+        //cmbStatus.setItems(reservationDTO.getStatus());
+        /*txtName.setText(studentDTO.getStudentName());
+        txtAddress.setText(studentDTO.getAddress());
+        txtxTel.setText(String.valueOf(studentDTO.getContact_number()));
+        txtDOB.setText(studentDTO.getDate_of_birth());
+        txtGender.setText(studentDTO.getGender());*/
     }
 
     public void btnRegistaion(ActionEvent actionEvent) {
@@ -122,6 +142,22 @@ public class ResrvationFormController {
     }
 
     public void btnUpdateOnACtion(ActionEvent actionEvent) {
+        ReservationDTO reservationDTO=reservationService.searchReservation(txtId.getText());
+        reservationDTO.setStatus((String) cmbStatus.getSelectionModel().getSelectedItem());
+        System.out.println(cmbStatus.getSelectionModel().getSelectedItem());
+        System.out.println(reservationDTO+"**********");
+        try {
+            reservationService.updateReservation(reservationDTO);
+
+            new Alert(Alert.AlertType.INFORMATION,"Update").show();
+            loadAllReservation();
+        }catch (NotFoundException e){
+            new Alert(Alert.AlertType.ERROR,"No").show();
+        }
+
+
+
+
 
     }
     private void LoadStudentIds(){

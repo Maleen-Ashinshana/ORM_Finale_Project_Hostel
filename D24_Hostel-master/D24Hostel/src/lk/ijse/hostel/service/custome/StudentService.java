@@ -17,4 +17,5 @@ public interface StudentService extends SuperSevice {
     boolean updateStudent(StudentDTO studentDTO) throws NotFoundException;
     boolean deleteStudent(String id) throws SQLException,ClassNotFoundException;
     List<StudentDTO> getAllStudent();
+    long calcAllStudent();
 }

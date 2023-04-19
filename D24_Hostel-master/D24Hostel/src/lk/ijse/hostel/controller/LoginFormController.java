@@ -66,11 +66,8 @@ public UserService userService;
         txtId.setVisible(false);
         fEyeSlash.setVisible(false);
         txtSlashPassword.setVisible(false);
-
         txtPassword.setOnKeyReleased(event -> txtSlashPassword.setText(txtPassword.getText()));
-
         txtSlashPassword.setOnKeyReleased(event -> txtPassword.setText(txtSlashPassword.getText()));
-
         idPatten= Pattern.compile("^[S][0][0-9]{1,}$");
         namePatten=Pattern.compile("^[A-Za-z0-9]{4,}$");
         passwordPatten=Pattern.compile("^[a-zA-Z0-9_]{8,}$");

@@ -13,11 +13,13 @@ import lk.ijse.hostel.entity.RoomEntity;
 import lk.ijse.hostel.entity.StudentEntity;
 import lk.ijse.hostel.service.custome.ReservationService;
 import lk.ijse.hostel.service.exception.DuplicateException;
+import lk.ijse.hostel.service.exception.NotFoundException;
 import lk.ijse.hostel.service.util.Convertor;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ReservationServiceIMPL implements ReservationService {
@@ -41,7 +43,8 @@ public class ReservationServiceIMPL implements ReservationService {
      //return reservationDAO.save(convertor.fromReservation(reservationDTO));
         //return reservationDAO.save(new ReservationEntity(reservationDTO.getId(),reservationDTO.getDate(),reservationDTO.getStatus(),reservationDTO.getStudentId(),reservationDTO.getRoomId()));
 
-    ReservationEntity entity=new ReservationEntity(reservationDTO.getId(),reservationDTO.getDate(),reservationDTO.getStatus(),new StudentEntity(reservationDTO.getStudent()),new RoomEntity(reservationDTO.getRoom()));
+    ReservationEntity entity=new ReservationEntity(reservationDTO.getId(),reservationDTO.getDate(),reservationDTO.getStatus()
+            ,new StudentEntity(reservationDTO.getStudent()),new RoomEntity(reservationDTO.getRoom()));
     return reservationDAO.save(entity);
 
     }
@@ -72,5 +75,21 @@ public class ReservationServiceIMPL implements ReservationService {
     @Override
     public ArrayList<String> loadRoomsType() {
         return roomDAO.loadRoomsType();
+    }
+
+    @Override
+    public ReservationDTO searchReservation(String id) throws NotFoundException {
+       /* Optional<ReservationEntity> search= Optional.ofNullable(reservationDAO.search(id));
+        if (!search.isPresent())throw new NotFoundException("Re Not Found");
+        //return convertor.fromReservation(search.get());
+        return new ReservationDTO()*/
+        ReservationEntity entity=reservationDAO.search(id);
+        return new ReservationDTO(entity.getId(), entity.getDate(), entity.getStatus(),(entity.getStudentEntity().getStudentId()),(entity.getRoom().getRoom_type_id()));
+   /*    *//* ,new StudentDTO(entity.getStudentEntity().getStudentId()),new RoomDTO(entity.getRoom().getRoom_type_id()))*//*;*/
+    }
+
+    @Override
+    public boolean updateReservation(ReservationDTO reservationDTO) throws NotFoundException {
+        return reservationDAO.update(convertor.toReservation(reservationDTO));
     }
 }
